@@ -1,0 +1,19 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "command": {
+    "create": {
+      "homepage": "https://github.com/jgbjs/jgb-transform",
+      "license": "Apache-2.0"
+    },
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "gitRemote": "upstream",
+      "message": "chore(release): publish %s"
+    }
+  },
+  "npmClient": "yarn",
+  "version": "independent"
+}

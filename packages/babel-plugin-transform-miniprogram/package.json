@@ -1,0 +1,35 @@
+{
+  "name": "babel-plugin-transform-miniprogram",
+  "version": "0.0.1",
+  "description": "babel plugin tranfrom api xx to xx",
+  "author": "蒋瑶 <landn172@gmail.com>",
+  "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/babel-plugin-transform-miniprogram#readme",
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/landn172/jgb-transform.git"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "babel src/ --out-dir lib",
+    "prepublish": "npm run build && npm run test"
+  },
+  "bugs": {
+    "url": "https://github.com/landn172/jgb-transform/issues"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "babel-plugin-tester": "^5.5.1",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.6.0"
+  }
+}

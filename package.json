@@ -1,0 +1,20 @@
+{
+  "name": "jgb-transform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:landn172/jgb-transform.git",
+  "author": "蒋瑶 <landn172@gmail.com>",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "publish": "lerna publish"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "lerna": "^3.1.4"
+  }
+}
