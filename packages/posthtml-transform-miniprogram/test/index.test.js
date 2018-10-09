@@ -1,6 +1,7 @@
 'use strict';
 
 const posthtml = require('posthtml')
+const format = require('pretty');
 const transform = require('../src/index');
 
 expect.extend({
@@ -11,7 +12,7 @@ expect.extend({
         .process(received, {
           closingSingleTag: 'slash'
         })
-        .then((result) => resolve(result.html))
+        .then((result) => resolve(format(result.html)))
     })
     debugger;
     const pass = html === expected
@@ -38,10 +39,10 @@ describe('wx => swan', () => {
     <view wx:if="{{length > 5}}"> 1 </view>
     <view wx:elif="{{length > 2}}"> 2 </view>
     <view wx:else> 3 </view>`)
-      .transformer(`
+      .transformer(format(`
     <view s-if="{{length > 5}}"> 1 </view>
     <view s-elif="{{length > 2}}"> 2 </view>
-    <view s-else> 3 </view>`)
+    <view s-else> 3 </view>`))
   })
 
   test(`template: {{}} => {{{}}}`, async () => {
@@ -52,5 +53,19 @@ describe('wx => swan', () => {
   test(`scroll-view: {{data}} => {= data =}`, async () => {
     await expect(`<scroll-view scroll-top="{{scrollTop}}"></scroll-view>`)
       .transformer(`<scroll-view scroll-top="{= scrollTop =}"></scroll-view>`)
+  })
+
+  test(`auto add block when wx:if and wx:for in same tag`, async() => {
+    await expect(`
+    <view wx:for="{{items}}" wx:if="{{items}}">
+      <view>data</view>
+    </view>`)
+      .transformer(format(`
+    <block s-if="{{items}}">
+      <view s-for="{{items}}">
+        <view>data</view>
+      </view>
+    </block>`))
+
   })
 })

@@ -1,7 +1,7 @@
 {
   "name": "posthtml-transform-miniprogram",
   "version": "0.1.0",
-  "description": "> TODO: description",
+  "description": "posthtml-transform-miniprogram",
   "author": "蒋瑶 <landn172@gmail.com>",
   "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/posthtml-transform-miniprogram#readme",
   "license": "Apache-2.0",
@@ -29,6 +29,10 @@
   },
   "devDependencies": {
     "jest": "^23.6.0",
-    "posthtml": "^0.11.3"
+    "posthtml": "^0.11.3",
+    "pretty": "^2.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
   }
 }
