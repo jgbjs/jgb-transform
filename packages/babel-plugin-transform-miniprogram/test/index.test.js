@@ -27,6 +27,10 @@ pluginTester({
       code: `var temp = wx;`,
       output: `var temp = swan;`
     },
+    "var systemInfo = wx.getSystemInfoSync();": {
+      code: `var systemInfo = wx.getSystemInfoSync();`,
+      output: `var systemInfo = swan.getSystemInfoSync();`
+    },
     [`export default wx`]: {
       code: `export default wx`,
       output: `export default swan;`

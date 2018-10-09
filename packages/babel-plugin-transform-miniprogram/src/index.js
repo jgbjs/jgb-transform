@@ -24,16 +24,19 @@ export default function ({types:t}) {
     },
     visitor: {
       MemberExpression(path) {
+        if(!path.node.object) return
         if (path.node.object.name === SOURCE) {
           path.traverse(updateVisitor)
         }
       },
       VariableDeclarator(path) {
+        if (!path.node.init) return
         if (path.node.init.name === SOURCE) {
           path.traverse(updateVisitor)
         }
       },
       ExportDefaultDeclaration(path) {
+        if(!path.node.declaration) return
         if (path.node.declaration.name === SOURCE) {
           path.traverse(updateVisitor)
         }
