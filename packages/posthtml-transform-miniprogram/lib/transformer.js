@@ -96,9 +96,9 @@ function transformSwan(node) {
   // s-for与s-if不可在同一标签下同时使用。
   var keys = Object.keys(attrs);
   if (keys.includes('s-for') && keys.includes('s-if')) {
+    console.warn('s-for\u4E0Es-if\u4E0D\u53EF\u5728\u540C\u4E00\u6807\u7B7E\u4E0B\u540C\u65F6\u4F7F\u7528\u3002\u6B63\u5728\u8F6C\u6362\u6DFB\u52A0block\u4F5C\u4E3As-if\u5224\u65AD\u6807\u7B7E');
     var value = attrs['s-if'];
     delete node.attrs['s-if'];
-    debugger;
     node.content = [ENTER_STR, cloneNode(node), ENTER_STR];
     node.tag = 'block';
     node.attrs = {

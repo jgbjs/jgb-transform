@@ -10,7 +10,11 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "sub:remote.add": "git remote add -f weapp git@github.com:jgbjs/miniprogram-demo.git",
+    "sub:add": "git subtree add --prefix=examples/wx2swan/src weapp master --squash",
+    "sub:pull": "git subtree pull --prefix=examples/wx2swan/src weapp master --squash",
+    "sub:push": "git subtree push --prefix=examples/wx2swan/src weapp master"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
