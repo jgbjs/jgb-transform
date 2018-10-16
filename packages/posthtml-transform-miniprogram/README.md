@@ -12,7 +12,7 @@ posthtml()
   .use(
     transform({
       source: 'wx', // default
-      target: 's' // default
+      target: 'swan' // default
     })
   )
   .process(received, {
