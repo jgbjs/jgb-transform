@@ -25,11 +25,14 @@
     "url": "https://github.com/landn172/jgb-transform/issues"
   },
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "miniapp-adapter": "1.2.0",
+    "resolve": "^1.8.1"
   },
   "devDependencies": {
     "babel-plugin-tester": "^5.5.1",
     "babel-preset-env": "^1.7.0",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "js-beautify": "^1.8.7"
   }
 }
