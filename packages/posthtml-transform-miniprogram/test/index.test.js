@@ -61,8 +61,8 @@ describe('wx => swan', () => {
       <view>data</view>
     </view>`)
       .transformer(format(`
-    <block s-if="{{items}}">
-      <view s-for="{{items}}">
+    <block s-for="{{items}}">
+      <view s-if="{{items}}">
         <view>data</view>
       </view>
     </block>`))
