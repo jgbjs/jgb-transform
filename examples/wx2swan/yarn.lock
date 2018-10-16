@@ -2008,7 +2008,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "http://registry.npm.taobao.org/lodash.uniq/download/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@^4.17.10, lodash@^4.17.4:
+lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4:
   version "4.17.11"
   resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
@@ -2072,6 +2072,10 @@ miller-rabin@^4.0.0:
   dependencies:
     bn.js "^4.0.0"
     brorand "^1.0.1"
+
+miniapp-adapter@^1.1.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/miniapp-adapter/download/miniapp-adapter-1.1.0.tgz#23671aed955963abb9eac8c4a9a8b977ba1c499e"
 
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"
@@ -2833,9 +2837,11 @@ posthtml-render@^1.1.0, posthtml-render@^1.1.4:
   version "1.1.4"
   resolved "http://registry.npm.taobao.org/posthtml-render/download/posthtml-render-1.1.4.tgz#95dac09892f4f183fad5ac823f08f42c0256551e"
 
-posthtml-transform-miniprogram@^0.1.0:
-  version "0.1.0"
-  resolved "http://registry.npm.taobao.org/posthtml-transform-miniprogram/download/posthtml-transform-miniprogram-0.1.0.tgz#250fcc9daba49aa018d601bb1b85b8488af1c9d0"
+posthtml-transform-miniprogram@^0.1.1:
+  version "0.1.1"
+  resolved "http://registry.npm.taobao.org/posthtml-transform-miniprogram/download/posthtml-transform-miniprogram-0.1.1.tgz#6bd5a0007a683f4914426533f99cace5f74ae34b"
+  dependencies:
+    lodash "^4.17.11"
 
 posthtml@^0.11.3:
   version "0.11.3"
