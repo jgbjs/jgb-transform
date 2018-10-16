@@ -23,10 +23,10 @@ yarn add babel-plugin-transform-miniprogram --dev
 
 ## options
 
-| 选项名 | 说明             | 默认值 |
-| ------ | ---------------- | ------ |
-| SOURCE | 需要转义的关键字 | wx     |
-| TARGET | 替换值           | swan   |
-|        |                  |        |
+| 选项名 | 说明             | 默认值          |
+| ------ | ---------------- | --------------- |
+| source | 需要转义的关键字 | wx              |
+| target | 替换值           | swan            |
+| lib    | 适配库（^0.2.0） | miniapp-adapter |
 
 
