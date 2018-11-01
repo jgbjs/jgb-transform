@@ -13,10 +13,13 @@ let SOURCE = 'wx'
 let TARGET = 'swan'
 /* 适配库包名 */
 let adapterLib = '';
+/* 忽略转换 */
+let ignoreTransform = false;
 const DEFAULT_LIB = 'miniapp-adapter';
 
 const updateVisitor = {
   Identifier(path) {
+    if (ignoreTransform) return
     if (path.node.name === SOURCE) {
       const state = this.ctx.file
       state._isUsedTransform = true;
@@ -51,6 +54,7 @@ export default function ({types:t}) {
       if (state.ast.isImported) return
       if (!state._isUsedTransform) return
       if (!adapterLib) return
+      if (ignoreTransform) return
       const importAst = t.importDeclaration([t.importDefaultSpecifier(t.identifier(TARGET))], t.stringLiteral(adapterLib))
       state.ast.isImported = true
       state.ast.program.body.unshift(importAst)
