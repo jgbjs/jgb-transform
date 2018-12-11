@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.1.3...posthtml-transform-miniprogram@0.2.0) (2018-12-11)
+
+
+### Features
+
+* 增加支付宝适配 ([20f8601](https://github.com/landn172/jgb-transform/commit/20f8601))
+
+
+
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.1.2...posthtml-transform-miniprogram@0.1.3) (2018-10-16)
 

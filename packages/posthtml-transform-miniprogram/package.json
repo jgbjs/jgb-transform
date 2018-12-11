@@ -1,6 +1,6 @@
 {
   "name": "posthtml-transform-miniprogram",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "posthtml-transform-miniprogram",
   "author": "蒋瑶 <landn172@gmail.com>",
   "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/posthtml-transform-miniprogram#readme",
