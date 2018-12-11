@@ -1,0 +1,28 @@
+{
+  "name": "miniapp-adapter",
+  "version": "1.2.2",
+  "main": "lib/index.js",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/miniapp-adapter",  
+  "author": {
+    "name": "landn172",
+    "email": "landn172@gmail.com"
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "babel src/ --out-dir lib/ --source-maps inline",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "jest": "^22.4.3"
+  },
+  "dependencies": {
+    "miniapp-regenerator-runtime": "^1.0.0"
+  }
+}

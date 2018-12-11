@@ -54,7 +54,18 @@ pluginTester({
       code: `module.exports = wx;`,
       output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       module.exports = swan;`)
-    },
+    }
+  },
+})
+
+pluginTester({
+  pluginName: `babel-plugin-transform-wx-to-aliapp`,
+  plugin,
+  pluginOptions: {
+    source: 'wx',
+    target: 'aliapp',
+  },
+  tests: {
     "ali: var request = wx.request": {
       code: `var request = wx.request;`,
       output: pretty(`import my from "miniapp-adapter/lib/platform/aliapp/index.js";
@@ -62,6 +73,19 @@ pluginTester({
       pluginOptions: {
         target: 'my',
       },
+      formatResult: (code) => pretty(code)
+    },
+    "ali: replace Component": {
+      code: `Component({});`,
+      output: pretty(`import { AdapterComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      AdapterComponent({}, Component);`),
+      formatResult: (code) => pretty(code)
+    },
+  "ali: replace Behavior": {
+      code: `Behavior({});`,
+      output: pretty(`import { AdapterBehavior } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      AdapterBehavior({});`),
+      formatResult: (code) => pretty(code)
     }
-  },
+  }
 })

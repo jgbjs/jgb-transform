@@ -447,10 +447,10 @@ babel-plugin-syntax-trailing-function-commas@^6.22.0:
   resolved "http://registry.npm.taobao.org/babel-plugin-syntax-trailing-function-commas/download/babel-plugin-syntax-trailing-function-commas-6.22.0.tgz#ba0360937f8d06e40180a43fe0d5616fff532cf3"
   integrity sha1-ugNgk3+NBuQBgKQ/4NVhb/9TLPM=
 
-babel-plugin-tester@^5.5.1:
-  version "5.5.1"
-  resolved "http://registry.npm.taobao.org/babel-plugin-tester/download/babel-plugin-tester-5.5.1.tgz#93648d140e67a81fa8474a73d3382b4fd8e91ca6"
-  integrity sha1-k2SNFA5nqB+oR0pz0zgrT9jpHKY=
+babel-plugin-tester@^5.5.2:
+  version "5.5.2"
+  resolved "http://registry.npm.taobao.org/babel-plugin-tester/download/babel-plugin-tester-5.5.2.tgz#593ab7978d30450c1b3ebf4aa9c884b04952fe09"
+  integrity sha1-WTq3l40wRQwbPr9KqciEsElS/gk=
   dependencies:
     common-tags "^1.4.0"
     invariant "^2.2.2"

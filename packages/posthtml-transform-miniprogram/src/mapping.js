@@ -23,10 +23,20 @@ export const swanAttrs = [
   's-else'
 ]
 
+export const aliappAttrs = [
+  'a:for',
+  'a:for-index',
+  'a:for-item',
+  'a:key',
+  'a:if',
+  'a:elif',
+  'a:else'
+]
+
 export const mapping = {
   attr: {
     wx: wxAttrs,
-    s: swanAttrs,
-    swan: swanAttrs
+    swan: swanAttrs,
+    aliapp: aliappAttrs
   }
 }

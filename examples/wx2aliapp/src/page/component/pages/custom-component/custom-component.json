@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "自定义组件",
+  "usingComponents": {
+    "test-props": "../../components/test-props/test-props",
+    "test-behaviors": "../../components/test-behaviors/test-behaviors"
+  }
+}

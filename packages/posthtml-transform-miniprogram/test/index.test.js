@@ -4,18 +4,25 @@ const posthtml = require('posthtml')
 const format = require('pretty');
 const transform = require('../src/index');
 
+
 expect.extend({
-  async transformer(received, expected) {
-    const html = await new Promise((resolve) => {
-      posthtml()
-        .use(transform())
-        .process(received, {
-          closingSingleTag: 'slash'
-        })
-        .then((result) => resolve(format(result.html)))
-    })
-    debugger;
+  async transformSwan(received, expected) {
+    const html = await processHtml(received)
     const pass = html === expected
+    if (!pass) {
+      console.log(html, '\n', expected)
+    }
+    return {
+      pass,
+      message: () => pass ? `` : `not match`
+    }
+  },
+  async transfromAliapp(received, expected) {
+    const html = await processHtml(received, 'aliapp')
+    const pass = html === expected
+    if (!pass) {
+      console.log(html, '\n', expected)
+    }
     return {
       pass,
       message: () => pass ? `` : `not match`
@@ -23,15 +30,41 @@ expect.extend({
   }
 })
 
+function processHtml(received, target = 'swan') {
+  return new Promise((resolve) => {
+    posthtml()
+      .use(transform({
+        source: 'wx',
+        target
+      }))
+      .process(received, {
+        closingSingleTag: 'slash'
+      })
+      .then((result) => resolve(format(result.html)))
+  })
+}
+
+describe('wx => aliapp', () => {
+  test('wx:if => a:if', async () => {
+    await expect(`<view wx:if="{{data}}"></view>`)
+      .transfromAliapp(`<view a:if="{{data}}"></view>`)
+  })
+
+  test('<scroll-view> event', async () => {
+    await expect(`<scroll-view bindscrolltoupper="bindscrolltoupper" bindscrolltolower="bindscrolltolower" bindscroll="bindscroll"></scroll-view>`)
+      .transfromAliapp(`<scroll-view onScrollToUpper="bindscrolltoupper" onScrollToLower="bindscrolltolower" onScroll="bindscroll"></scroll-view>`)
+  })
+})
+
 describe('wx => swan', () => {
   test('wx:if => s-if', async () => {
     await expect(`<view wx:if="{{data}}"></view>`)
-      .transformer(`<view s-if="{{data}}"></view>`)
+      .transformSwan(`<view s-if="{{data}}"></view>`)
   });
 
   test('wx:for => s-for', async () => {
     await expect(`<view wx:for="{{data}}" wx:for-item="item" wx:for-index="idx" wx:key="key"></view>`)
-      .transformer(`<view s-for="{{data}}" s-for-item="item" s-for-index="idx" s-key="key"></view>`)
+      .transformSwan(`<view s-for="{{data}}" s-for-item="item" s-for-index="idx" s-key="key"></view>`)
   })
 
   test(`wx:if => s-if`, async () => {
@@ -39,7 +72,7 @@ describe('wx => swan', () => {
     <view wx:if="{{length > 5}}"> 1 </view>
     <view wx:elif="{{length > 2}}"> 2 </view>
     <view wx:else> 3 </view>`)
-      .transformer(format(`
+      .transformSwan(format(`
     <view s-if="{{length > 5}}"> 1 </view>
     <view s-elif="{{length > 2}}"> 2 </view>
     <view s-else> 3 </view>`))
@@ -47,12 +80,12 @@ describe('wx => swan', () => {
 
   test(`template: {{}} => {{{}}}`, async () => {
     await expect(`<template is="msgItem" data="{{...item}}" />`)
-      .transformer(`<template is="msgItem" data="{{{...item}}}"></template>`)
+      .transformSwan(`<template is="msgItem" data="{{{...item}}}"></template>`)
   })
 
   test(`scroll-view: {{data}} => {= data =}`, async () => {
     await expect(`<scroll-view scroll-top="{{scrollTop}}"></scroll-view>`)
-      .transformer(`<scroll-view scroll-top="{= scrollTop =}"></scroll-view>`)
+      .transformSwan(`<scroll-view scroll-top="{= scrollTop =}"></scroll-view>`)
   })
 
   test(`auto add block when wx:if and wx:for in same tag`, async() => {
@@ -60,7 +93,7 @@ describe('wx => swan', () => {
     <view wx:for="{{items}}" wx:if="{{items}}">
       <view>data</view>
     </view>`)
-      .transformer(format(`
+      .transformSwan(format(`
     <block s-for="{{items}}">
       <view s-if="{{items}}">
         <view>data</view>

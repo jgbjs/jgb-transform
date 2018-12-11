@@ -1,0 +1,4 @@
+<test-props my-property="{{mprop}}" id="id-test-props" class="test"></test-props>
+<button bind:tap="changeTestPropsValue">click change [test-props] value</button>
+<test-behaviors id="id-test-behaviors" class="test test-behaviors"></test-behaviors>
+<button bind:tap="getComponent">Page:getComponent</button>

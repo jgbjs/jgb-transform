@@ -1,0 +1,6 @@
+.query-node {
+  margin: 0 auto;
+  width: 80%;
+  height: 300rpx;
+  background-color: aqua;
+}

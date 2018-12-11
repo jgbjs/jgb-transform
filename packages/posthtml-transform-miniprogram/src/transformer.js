@@ -34,18 +34,148 @@ export function createTransformAttr(source, target) {
   }
 }
 
-const MATCH_BRACE = /(?:{)+([^}]+)(?:})+/
+/**
+ * 通用属性事件名转换 
+ * @param {*} source 
+ * @param {*} target 
+ */
+export function createTransformEventAttr(source, target) {
+  // 支付宝小程序和微信小程序差异比较多
+  if (target !== 'aliapp') {
+    return returnSelf
+  }
+
+  return transformAliappEventAttr
+}
+
+const MATCH_EVENT_ATTR = /^(bind|catch){1}:?(.*)/
+
+/**
+ * wx转换支付宝事件
+ * @param {*} node 
+ */
+function transformAliappEventAttr(node) {
+  const attrs = node.attrs
+  if (!attrs) return node;
+  const commonEventMapping = {
+    touchstart: 'TouchStart',
+    touchmove: 'TouchMove',
+    touchend: 'TouchEnd',
+    touchcancel: 'TouchCancel',
+    longtap: 'LongTap'
+  }
+  // capture-bind:* , capture-catch:* 支付宝不支持所以忽略
+  Object.keys(attrs).forEach(key => {
+    const matches = key.match(MATCH_EVENT_ATTR);
+    if (!matches) return;
+    const [g, eventStartKey, eventName] = matches;
+    // bind:* , bindtap => onTap
+    // catch:* , catchtap => catchTap
+    let evtName = commonEventMapping[eventName]
+    if (!evtName) {
+      evtName = eventName[0].toUpperCase() + eventName.slice(1)
+    }
+    const attr = 'on' + evtName;
+    const value = attrs[key]
+    attrs[attr] = value === '' ? true : value
+    delete attrs[key]
+  })
+  return node;
+}
+
+// 匹配2个以上大括号 like {{ data }} {{{ data }}}
+const MATCH_BRACE = /(?:{){2,}([^}]+)(?:}){2,}/
 
 export function createTransformAttrValue(source, target) {
   if (source === target) {
-    return node => node
+    return returnSelf
   }
 
   const selector = {
-    'swan': transformSwan
+    'swan': transformSwan,
+    'aliapp': transfromAliapp,
+    'my': transfromAliapp
   }
 
   return selector[target]
+}
+
+
+
+function returnSelf(node) {
+  return node
+}
+
+/**
+ * aliapp 转换器
+ * @param {*} node 
+ */
+function transfromAliapp(node) {
+  const attrs = node.attrs || {}
+  if (node.tag === 'icon') {
+    const iconTypeNoSupport = ['circle', 'info_circle']
+    if (iconTypeNoSupport.includes(attrs.type)) {
+      console.warn(`支付宝小程序 <icon> 不支持 type: ${attrs.type}, 会导致页面不渲染。`)
+    }
+  }
+  if (node.tag === 'scroll-view') {
+    const nameMapping = {
+      bindscrolltoupper: 'onScrollToUpper',
+      bindscrolltolower: 'onScrollToLower'
+    }
+    replaceAttrNames(nameMapping)
+  }
+
+  if (node.tag === 'picker-view') {
+    const nameMapping = {
+      'indicator-style': 'indicatorStyle'
+    }
+    replaceAttrNames(nameMapping)
+  }
+
+  if (node.tag === 'slider') {
+    const nameMapping = {
+      'block-size': 'handleSize',
+      'block-color': 'handleColor'
+    }
+    replaceAttrNames(nameMapping)
+  }
+
+  if (node.tag === 'image') {
+    const nameMapping = {
+      'lazy-load': 'lazyLoad'
+    }
+    replaceAttrNames(nameMapping)
+  }
+
+  if (node.tag === 'canvas') {
+    const nameMapping = {
+      'canvas-id': 'id'
+    }
+    replaceAttrNames(nameMapping)
+  }
+
+  if (node.tag === 'map') {
+    const nameMapping = {
+      'bindmarkertap': 'onMarkerTap',
+      'bindcallouttap': 'onCalloutTap',
+      'bindcontroltap': 'onControlTap',
+      'bindregionchange': 'onRegionChange'
+    }
+    replaceAttrNames(nameMapping)
+  }
+
+  return node
+
+  function replaceAttrNames(nameMapping) {
+    Object.keys(nameMapping).forEach(name => {
+      const value = attrs[name]
+      if (value) {
+        attrs[nameMapping[name]] = value;
+        delete attrs[name];
+      }
+    })
+  }
 }
 
 /**
@@ -57,7 +187,7 @@ function transformSwan(node) {
   const attrs = node.attrs || {}
   if (node.tag === 'template') {
     const data = attrs.data
-    if (!data) return
+    if (!data) return node;
     node.attrs.data = data.replace(MATCH_BRACE, (g, $1) => {
       return `{{{${$1}}}}`
     })
@@ -66,7 +196,7 @@ function transformSwan(node) {
     // {{ scroll }} => {= scroll =}
     ['scroll-top', 'scroll-left', 'scroll-into-view'].forEach((attr) => {
       const contains = !!attrs[attr]
-      if (!contains) return
+      if (!contains) return;
       node.attrs[attr] = attrs[attr].replace(MATCH_BRACE, (g, $1) => {
         return `{= ${$1} =}`
       })
@@ -93,7 +223,8 @@ export default function transformer(options) {
   const {source, target} = options
   const transformAttr = createTransformAttr(source, target)
   const transformAttrValue = createTransformAttrValue(source, target)
-  return [transformAttr, transformAttrValue]
+  const transformEventAttr = createTransformEventAttr(source, target)
+  return [transformAttr, transformAttrValue, transformEventAttr]
 }
 
 function cloneNode(node) {

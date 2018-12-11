@@ -1,0 +1,9 @@
+测试组件内createSelectorQuery
+<view class="query-node">
+  query-node
+</view>
+节点信息
+<view>left: {{left}}</view>
+<view>width: {{width}}</view>
+<view>top:: {{top}}</view>
+<view>height: {{height}}</view>

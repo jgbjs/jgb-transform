@@ -1,11 +1,13 @@
-import getMapping from './mapping'
 import Task from './task';
 import transformer from './transformer'
 
 function initOptions(options) {
   options = options || {}
-  options.source = 'wx'
-  options.target = 'swan'
+
+  if (options.target === 'my') {
+    options.target = 'aliapp'
+  }
+
   return options
 }
 

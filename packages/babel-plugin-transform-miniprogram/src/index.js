@@ -13,16 +13,18 @@ let SOURCE = 'wx'
 let TARGET = 'swan'
 /* 适配库包名 */
 let adapterLib = '';
-/* 忽略转换 */
-let ignoreTransform = false;
 const DEFAULT_LIB = 'miniapp-adapter';
+const IGNORE_KEYWORD = '@jgb-ignore'
+const ADAPTER_COMPOENT = 'AdapterComponent'
+const ADAPTER_BEHAVIOR = 'AdapterBehavior'
+const ADAPTER_PAGE = 'AdapterPage'
 
 const updateVisitor = {
-  Identifier(path) {
-    if (ignoreTransform) return
+  Identifier(path, state) {
+    if (state.ctx.file._ignoreTransform) return
     if (path.node.name === SOURCE) {
       const state = this.ctx.file
-      state._isUsedTransform = true;
+      state.needImportDefaultSpecifier = true;
       path.node.name = TARGET;
     }
   }
@@ -34,9 +36,16 @@ const mappingAdapterLib = {
   my: 'aliapp'
 }
 
+const aliasAdapterTarget = Object.keys(mappingAdapterLib).reduce((obj, key) => {
+  const value = mappingAdapterLib[key]
+  obj[key] = [key, value]
+  return obj
+}, {})
+
 export default function ({types:t}) {
   return {
     pre(state) {
+      const filename = state.opts.filename;
       const [plugin] = state.opts.plugins
       const [, opts={}] = plugin
       if (opts.source) {
@@ -47,15 +56,40 @@ export default function ({types:t}) {
         TARGET = opts.target
       }
 
-      adapterLib = getAdapterRealPath(opts.lib || DEFAULT_LIB)
+      const comments = state.ast.comments
+      if (comments && comments.length && comments.filter(c => c.value.includes(IGNORE_KEYWORD)).length) {
+        state._ignoreTransform = true
+      }
+
+      adapterLib = getAdapterRealPath(opts.lib)
     },
     post(state) {
       if (SOURCE === TARGET) return
       if (state.ast.isImported) return
-      if (!state._isUsedTransform) return
       if (!adapterLib) return
-      if (ignoreTransform) return
-      const importAst = t.importDeclaration([t.importDefaultSpecifier(t.identifier(TARGET))], t.stringLiteral(adapterLib))
+      if (state._ignoreTransform) return
+      const importDeclarations = []
+      // import wx from 'xxx/xxx'
+      if (state.needImportDefaultSpecifier) {
+        importDeclarations.push(t.importDefaultSpecifier(t.identifier(TARGET)))
+      }
+
+      // when wx2aliapp
+      if (aliasAdapterTarget["my"].indexOf(TARGET) >= 0) {
+        if (state.importSpecifiers) {
+          const importSpecifiers = new Set(state.importSpecifiers)
+          for (const sp of importSpecifiers) {
+            // import {AdapterComponent} from 'xxx/xxx'
+            importDeclarations.push(t.importSpecifier(t.identifier(sp), t.identifier(sp)))
+          }
+        }
+      }
+
+      if (importDeclarations.length === 0) {
+        return
+      }
+
+      const importAst = t.importDeclaration(importDeclarations, t.stringLiteral(adapterLib))
       state.ast.isImported = true
       state.ast.program.body.unshift(importAst)
     },
@@ -90,13 +124,46 @@ export default function ({types:t}) {
             ctx: this
           })
         }
+      },
+      CallExpression(path) {
+        // Component({}) => AdapterComponent({},Component)
+        if (path.get("callee").node.name === 'Component') {
+          path.node.callee.name = ADAPTER_COMPOENT;
+          path.node.arguments.push(t.Identifier('Component'))
+          const state = this.file;
+          state.importSpecifiers = safePush(state.importSpecifiers, ADAPTER_COMPOENT);
+        }
+        
+        // Page({}) => AdapterPage({},Page) 
+        if (path.get("callee").node.name === 'Page') {
+          path.node.callee.name = ADAPTER_PAGE;
+          path.node.arguments.push(t.Identifier('Page'))
+          const state = this.file;
+          state.importSpecifiers = safePush(state.importSpecifiers, ADAPTER_PAGE);
+        }
+
+        // Behavior({}) => AdapterBehavior({})
+        if (path.get("callee").node.name === 'Behavior') {
+          path.node.callee.name = ADAPTER_BEHAVIOR;
+          const state = this.file
+          state.importSpecifiers = safePush(state.importSpecifiers, ADAPTER_BEHAVIOR);
+        }
       }
     }
   }
 }
 
-function getAdapterRealPath(requireLib) {
+function safePush(arr, item) {
+  arr = arr || [];
+  arr.push(item)
+  return arr;
+}
+
+let cachedAdapterRealPath = ''
+
+function getAdapterRealPath(requireLib = DEFAULT_LIB) {
   if (SOURCE === TARGET) return
+  if (cachedAdapterRealPath) return cachedAdapterRealPath
   let lib;
   try {
     lib = resolve.sync(requireLib, {
@@ -114,7 +181,10 @@ function getAdapterRealPath(requireLib) {
     if (adapterRealPath) return formatRequirePath(requireLib, adapterRealPath)
     return
   }
-  return formatRequirePath(requireLib, lib(TARGET))
+
+  cachedAdapterRealPath = formatRequirePath(requireLib, lib(TARGET))
+
+  return cachedAdapterRealPath
 }
 
 function formatRequirePath(requireLib, adapterPath) {
