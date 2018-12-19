@@ -1,14 +1,14 @@
 {
   "name": "wx2aliapp",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "build": "C:\\Users\\tuhuadmin\\scoop\\apps\\yarn\\current\\bin\\jgb build -t aliapp --no-cache"
   },
   "devDependencies": {
-    "babel-plugin-transform-miniprogram": "^0.3.0",
+    "babel-plugin-transform-miniprogram": "^0.3.1",
     "jgb-plugin-babel": "^1.4.3-alpha.2",
     "jgb-plugin-css": "^1.4.3-alpha.2",
     "jgb-plugin-html": "^1.4.3-alpha.2",

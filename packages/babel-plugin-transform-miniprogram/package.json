@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-miniprogram",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "babel plugin tranfrom api xx to xx",
   "author": "蒋瑶 <landn172@gmail.com>",
   "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/babel-plugin-transform-miniprogram#readme",
