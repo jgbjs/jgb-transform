@@ -11,7 +11,26 @@ function pretty(data) {
   })
 }
 
-pluginTester({
+function wrapTests(tests) {
+  const keys = Object.keys(tests)
+  keys.forEach(key => {
+    const value = tests[key]
+    if (typeof value === 'object') {
+      value.code = pretty(value.code)
+      value.formatResult = (code) => pretty(code)
+      value.output = pretty(value.output)
+      tests[key] = value
+    }
+  })
+  return tests
+}
+
+function PluginTester(params) {
+  params.tests = wrapTests(params.tests)
+  pluginTester(params)
+}
+
+PluginTester({
   pluginName: `babel-plugin-transform-wx-to-swan`,
   plugin,
   pluginOptions: {
@@ -20,51 +39,66 @@ pluginTester({
   },
   // fixtures: path.join(__dirname, 'fixtures'),
   tests: {
+    "const defefine wx: not transform": {
+      code: (`const wx = {};
+      wx.request({});`),
+      output: (`const wx = {};wx.request({});`)
+    },
+    "import wx: not transfrom": {
+      code: (`import wx from 'xxxx';
+      wx.request({});`),
+      output: (`import wx from 'xxxx';
+      wx.request({});`)
+    },
     "wx.request({})": {
       code: "wx.request({});",
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";      
+      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";      
       swan.request({});`)
     },
     [`wx["request"]({})`]: {
       code: `wx["request"]({});`,
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       swan["request"]({});`),
     },
     "var request = wx.request": {
       code: `var request = wx.request;`,
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       var request = swan.request;`)
     },
     "var temp = wx": {
       code: `var temp = wx;`,
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       var temp = swan;`)
     },
     "var systemInfo = wx.getSystemInfoSync();": {
       code: `var systemInfo = wx.getSystemInfoSync();`,
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       var systemInfo = swan.getSystemInfoSync();`)
     },
     [`export default wx`]: {
       code: `export default wx`,
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      export default swan;`)
+      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      export default swan;`
     },
     [`module.exports = wx;`]: {
       code: `module.exports = wx;`,
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      module.exports = swan;`)
+      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      module.exports = swan;`
     },
     [`function get(ctx = wx) {}`]: {
       code: `function get(ctx = wx) {}`,
-      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      function get(ctx = swan) {}`),
-      formatResult: (code) => pretty(code)
+      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      function get(ctx = swan) {}`
+    },
+    [`(ctx || wx).createSelectorQuery()`]: {
+      code: `(ctx || wx).createSelectorQuery();`,
+      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      (ctx || swan).createSelectorQuery();`
     }
   },
 })
 
-pluginTester({
+PluginTester({
   pluginName: `babel-plugin-transform-wx-to-aliapp`,
   plugin,
   pluginOptions: {
@@ -74,24 +108,21 @@ pluginTester({
   tests: {
     "ali: var request = wx.request": {
       code: `var request = wx.request;`,
-      output: pretty(`import my from "miniapp-adapter/lib/platform/aliapp/index.js";
-      var request = my.request;`),
+      output: `import my from "miniapp-adapter/lib/platform/aliapp/index.js";
+      var request = my.request;`,
       pluginOptions: {
         target: 'my',
       },
-      formatResult: (code) => pretty(code)
     },
     "ali: replace Component": {
       code: `Component({});`,
-      output: pretty(`import { AdapterComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
-      AdapterComponent({}, Component);`),
-      formatResult: (code) => pretty(code)
+      output: `import { AdapterComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      AdapterComponent({}, Component);`
     },
     "ali: replace Behavior": {
       code: `Behavior({});`,
-      output: pretty(`import { AdapterBehavior } from "miniapp-adapter/lib/platform/aliapp/index.js";
-      AdapterBehavior({});`),
-      formatResult: (code) => pretty(code)
+      output: `import { AdapterBehavior } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      AdapterBehavior({});`
     }
   }
 })

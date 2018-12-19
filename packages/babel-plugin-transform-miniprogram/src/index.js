@@ -25,17 +25,6 @@ const ImportDefaultSpecifierKey = 'needImportDefaultSpecifier'
 /** 设置导入多个需要的Specifiers  */
 const ImportSpecifiersKey = 'importSpecifiers'
 
-const updateVisitor = {
-  Identifier(path, state) {
-    if (state.ctx.file._ignoreTransform) return
-    if (path.node.name === SOURCE) {
-      const state = this.ctx.file
-      state[ImportDefaultSpecifierKey] = true;
-      path.node.name = TARGET;
-    }
-  }
-}
-
 const mappingAdapterLib = {
   wx: 'wechat',
   swan: 'baidu',
@@ -100,44 +89,15 @@ export default function ({types:t}) {
       state.ast.program.body.unshift(importAst)
     },
     visitor: {
-      MemberExpression(path) {
-        if (!path.node.object) return
-        if (path.node.object.name === SOURCE) {
-          path.traverse(updateVisitor, {
-            ctx: this
-          })
-        }
-      },
-      // function get(ctx = wx) {} => function(ctx = swan) {}
-      AssignmentPattern(path) {
-        const right = path.get('right');
-        if (t.isIdentifier(right) && right.node.name === 'wx') {
-          right.replaceWith(t.identifier(TARGET));
-          const state = this.file;
+      Identifier(path) {
+        if (this.file._ignoreTransform) return
+        const hasScope = !!path.scope.bindings[SOURCE]
+        // 局部重新定义该变量则忽略替换
+        if (hasScope) return
+        if (path.node.name === SOURCE) {
+          const state = this.file
           state[ImportDefaultSpecifierKey] = true;
-        }
-      },
-      VariableDeclarator(path) {
-        if (!path.node.init) return
-        if (path.node.init.name === SOURCE) {
-          path.traverse(updateVisitor, {
-            ctx: this
-          })
-        }
-      },
-      ExportDefaultDeclaration(path) {
-        if (!path.node.declaration) return
-        if (path.node.declaration.name === SOURCE) {
-          path.traverse(updateVisitor, {
-            ctx: this
-          })
-        }
-      },
-      AssignmentExpression(path) {
-        if (path.node.right.name === SOURCE) {
-          path.traverse(updateVisitor, {
-            ctx: this
-          })
+          path.replaceWith(t.identifier(TARGET))
         }
       },
       CallExpression(path) {
