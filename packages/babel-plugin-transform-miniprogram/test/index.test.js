@@ -54,6 +54,12 @@ pluginTester({
       code: `module.exports = wx;`,
       output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       module.exports = swan;`)
+    },
+    [`function get(ctx = wx) {}`]: {
+      code: `function get(ctx = wx) {}`,
+      output: pretty(`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
+      function get(ctx = swan) {}`),
+      formatResult: (code) => pretty(code)
     }
   },
 })
@@ -81,7 +87,7 @@ pluginTester({
       AdapterComponent({}, Component);`),
       formatResult: (code) => pretty(code)
     },
-  "ali: replace Behavior": {
+    "ali: replace Behavior": {
       code: `Behavior({});`,
       output: pretty(`import { AdapterBehavior } from "miniapp-adapter/lib/platform/aliapp/index.js";
       AdapterBehavior({});`),

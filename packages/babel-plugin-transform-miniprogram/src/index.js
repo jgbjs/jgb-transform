@@ -4,6 +4,7 @@
  * wx['xxx'] => swan['xxx']
  * var t = wx; => var t = swan; 
  * export default wx => export default swan
+ * function get(ctx = wx) {} => function get(ctx = swan) {}
  */
 
 const resolve = require('resolve');
@@ -19,12 +20,17 @@ const ADAPTER_COMPOENT = 'AdapterComponent'
 const ADAPTER_BEHAVIOR = 'AdapterBehavior'
 const ADAPTER_PAGE = 'AdapterPage'
 
+/** 设置是否需要导入默认需要替换的适配库  */
+const ImportDefaultSpecifierKey = 'needImportDefaultSpecifier'
+/** 设置导入多个需要的Specifiers  */
+const ImportSpecifiersKey = 'importSpecifiers'
+
 const updateVisitor = {
   Identifier(path, state) {
     if (state.ctx.file._ignoreTransform) return
     if (path.node.name === SOURCE) {
       const state = this.ctx.file
-      state.needImportDefaultSpecifier = true;
+      state[ImportDefaultSpecifierKey] = true;
       path.node.name = TARGET;
     }
   }
@@ -70,14 +76,14 @@ export default function ({types:t}) {
       if (state._ignoreTransform) return
       const importDeclarations = []
       // import wx from 'xxx/xxx'
-      if (state.needImportDefaultSpecifier) {
+      if (state[ImportDefaultSpecifierKey]) {
         importDeclarations.push(t.importDefaultSpecifier(t.identifier(TARGET)))
       }
 
       // when wx2aliapp
       if (aliasAdapterTarget["my"].indexOf(TARGET) >= 0) {
-        if (state.importSpecifiers) {
-          const importSpecifiers = new Set(state.importSpecifiers)
+        if (state[ImportSpecifiersKey]) {
+          const importSpecifiers = new Set(state[ImportSpecifiersKey])
           for (const sp of importSpecifiers) {
             // import {AdapterComponent} from 'xxx/xxx'
             importDeclarations.push(t.importSpecifier(t.identifier(sp), t.identifier(sp)))
@@ -100,6 +106,15 @@ export default function ({types:t}) {
           path.traverse(updateVisitor, {
             ctx: this
           })
+        }
+      },
+      // function get(ctx = wx) {} => function(ctx = swan) {}
+      AssignmentPattern(path) {
+        const right = path.get('right');
+        if (t.isIdentifier(right) && right.node.name === 'wx') {
+          right.replaceWith(t.identifier(TARGET));
+          const state = this.file;
+          state[ImportDefaultSpecifierKey] = true;
         }
       },
       VariableDeclarator(path) {
@@ -131,22 +146,22 @@ export default function ({types:t}) {
           path.node.callee.name = ADAPTER_COMPOENT;
           path.node.arguments.push(t.Identifier('Component'))
           const state = this.file;
-          state.importSpecifiers = safePush(state.importSpecifiers, ADAPTER_COMPOENT);
+          state[ImportSpecifiersKey] = safePush(state[ImportSpecifiersKey], ADAPTER_COMPOENT);
         }
-        
+
         // Page({}) => AdapterPage({},Page) 
         if (path.get("callee").node.name === 'Page') {
           path.node.callee.name = ADAPTER_PAGE;
           path.node.arguments.push(t.Identifier('Page'))
           const state = this.file;
-          state.importSpecifiers = safePush(state.importSpecifiers, ADAPTER_PAGE);
+          state[ImportSpecifiersKey] = safePush(state[ImportSpecifiersKey], ADAPTER_PAGE);
         }
 
         // Behavior({}) => AdapterBehavior({})
         if (path.get("callee").node.name === 'Behavior') {
           path.node.callee.name = ADAPTER_BEHAVIOR;
           const state = this.file
-          state.importSpecifiers = safePush(state.importSpecifiers, ADAPTER_BEHAVIOR);
+          state[ImportSpecifiersKey] = safePush(state[ImportSpecifiersKey], ADAPTER_BEHAVIOR);
         }
       }
     }
