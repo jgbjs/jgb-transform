@@ -14,6 +14,8 @@ let SOURCE = 'wx'
 let TARGET = 'swan'
 /* 适配库包名 */
 let adapterLib = '';
+/* 是否需要转换 */
+let needTransform = true;
 const DEFAULT_LIB = 'miniapp-adapter';
 const IGNORE_KEYWORD = '@jgb-ignore'
 const ADAPTER_COMPOENT = 'AdapterComponent'
@@ -51,18 +53,22 @@ export default function ({types:t}) {
         TARGET = opts.target
       }
 
+      // 注释中含有忽略转换关键字
       const comments = state.ast.comments
       if (comments && comments.length && comments.filter(c => c.value.includes(IGNORE_KEYWORD)).length) {
-        state._ignoreTransform = true
+        needTransform = false
+      }
+
+      if (SOURCE === TARGET) {
+        needTransform = false
       }
 
       adapterLib = getAdapterRealPath(opts.lib)
     },
     post(state) {
-      if (SOURCE === TARGET) return
+      if (!needTransform) return
       if (state.ast.isImported) return
       if (!adapterLib) return
-      if (state._ignoreTransform) return
       const importDeclarations = []
       // import wx from 'xxx/xxx'
       if (state[ImportDefaultSpecifierKey]) {
@@ -101,6 +107,10 @@ export default function ({types:t}) {
         }
       },
       CallExpression(path) {
+        // when wx2aliapp replace
+        if (aliasAdapterTarget["my"].indexOf(TARGET) < 0) {
+          return
+        }
         // Component({}) => AdapterComponent({},Component)
         if (path.get("callee").node.name === 'Component') {
           path.node.callee.name = ADAPTER_COMPOENT;

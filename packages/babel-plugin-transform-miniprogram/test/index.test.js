@@ -94,6 +94,16 @@ PluginTester({
       code: `(ctx || wx).createSelectorQuery();`,
       output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       (ctx || swan).createSelectorQuery();`
+    },
+    [`swan: will not tranform Page,Component,Behavior,App`]: {
+      code: `Component({});
+      App({});
+      Page({});
+      Behavior({});`,
+      output: `Component({});
+      App({});
+      Page({});
+      Behavior({});`
     }
   },
 })
@@ -123,6 +133,15 @@ PluginTester({
       code: `Behavior({});`,
       output: `import { AdapterBehavior } from "miniapp-adapter/lib/platform/aliapp/index.js";
       AdapterBehavior({});`
+    },
+    "ali: replace Page": {
+      code: `Page({});`,
+      output: `import { AdapterPage } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      AdapterPage({}, Page);`
+    },
+    "ali: while not replace App": {
+      code: `App({});`,
+      output: `App({});`,
     }
   }
 })
