@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/landn172/jgb-transform/compare/wx2aliapp@1.1.1...wx2aliapp@1.1.2) (2018-12-20)
+
+**Note:** Version bump only for package wx2aliapp
+
+
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/landn172/jgb-transform/compare/wx2aliapp@1.1.0...wx2aliapp@1.1.1) (2018-12-19)
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.3.1...babel-plugin-transform-miniprogram@0.3.2) (2018-12-20)
+
+
+### Bug Fixes
+
+* 修复wx=>swan默认会转换Component ([a2a9acb](https://github.com/landn172/jgb-transform/commit/a2a9acb))
+
+
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.3.0...babel-plugin-transform-miniprogram@0.3.1) (2018-12-19)
 
