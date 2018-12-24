@@ -14,8 +14,6 @@ let SOURCE = 'wx'
 let TARGET = 'swan'
 /* 适配库包名 */
 let adapterLib = '';
-/* 是否需要转换 */
-let needTransform = true;
 const DEFAULT_LIB = 'miniapp-adapter';
 const IGNORE_KEYWORD = '@jgb-ignore'
 const ADAPTER_COMPOENT = 'AdapterComponent'
@@ -45,6 +43,9 @@ export default function ({types:t}) {
       const filename = state.opts.filename;
       const [plugin] = state.opts.plugins
       const [, opts={}] = plugin
+
+      state.needTransform = true;
+
       if (opts.source) {
         SOURCE = opts.source
       }
@@ -56,17 +57,17 @@ export default function ({types:t}) {
       // 注释中含有忽略转换关键字
       const comments = state.ast.comments
       if (comments && comments.length && comments.filter(c => c.value.includes(IGNORE_KEYWORD)).length) {
-        needTransform = false
+        state.needTransform = false
       }
 
       if (SOURCE === TARGET) {
-        needTransform = false
+        state.needTransform = false
       }
 
       adapterLib = getAdapterRealPath(opts.lib)
     },
     post(state) {
-      if (!needTransform) return
+      if (!state.needTransform) return
       if (state.ast.isImported) return
       if (!adapterLib) return
       const importDeclarations = []
