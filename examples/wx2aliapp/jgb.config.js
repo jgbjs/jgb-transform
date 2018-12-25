@@ -1,6 +1,7 @@
 module.exports = {
   cache: false,
-  "entryFiles": ['app.js', 'app.json', 'app.wxss'],
+  // "entryFiles": ['page/API/index.js'],
+  "entryFiles": ['app.js',  'app.json', 'app.wxss' ],
   presets: ['aliapp'],
   plugins: [['css', {
     outExt: '.acss',

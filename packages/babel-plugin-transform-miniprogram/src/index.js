@@ -39,71 +39,69 @@ const aliasAdapterTarget = Object.keys(mappingAdapterLib).reduce((obj, key) => {
 
 export default function ({types:t}) {
   return {
-    pre(state) {
-      const filename = state.opts.filename;
-      const [plugin] = state.opts.plugins
-      const [, opts={}] = plugin
-
-      state.needTransform = true;
-
-      if (opts.source) {
-        SOURCE = opts.source
-      }
-
-      if (opts.target) {
-        TARGET = opts.target
-      }
-
-      // 注释中含有忽略转换关键字
-      const comments = state.ast.comments
-      if (comments && comments.length && comments.filter(c => c.value.includes(IGNORE_KEYWORD)).length) {
-        state.needTransform = false
-      }
-
-      if (SOURCE === TARGET) {
-        state.needTransform = false
-      }
-
-      adapterLib = getAdapterRealPath(opts.lib)
-    },
-    post(state) {
-      if (!state.needTransform) return
-      if (state.ast.isImported) return
-      if (!adapterLib) return
-      const importDeclarations = []
-      // import wx from 'xxx/xxx'
-      if (state[ImportDefaultSpecifierKey]) {
-        importDeclarations.push(t.importDefaultSpecifier(t.identifier(TARGET)))
-      }
-
-      // when wx2aliapp
-      if (aliasAdapterTarget["my"].indexOf(TARGET) >= 0) {
-        if (state[ImportSpecifiersKey]) {
-          const importSpecifiers = new Set(state[ImportSpecifiersKey])
-          for (const sp of importSpecifiers) {
-            // import {AdapterComponent} from 'xxx/xxx'
-            importDeclarations.push(t.importSpecifier(t.identifier(sp), t.identifier(sp)))
-          }
-        }
-      }
-
-      if (importDeclarations.length === 0) {
-        return
-      }
-
-      const importAst = t.importDeclaration(importDeclarations, t.stringLiteral(adapterLib))
-      state.ast.isImported = true
-      state.ast.program.body.unshift(importAst)
-    },
     visitor: {
-      Identifier(path) {
-        if (this.file._ignoreTransform) return
+      Program: {
+        enter(path, state) {
+          this.needTransform = true;
+          const opts = state.opts
+          if (opts.source) {
+            SOURCE = opts.source
+          }
+
+          if (opts.target) {
+            TARGET = opts.target
+          }
+
+          // 注释中含有忽略转换关键字
+          const comments = path.parent.comments
+          if (comments && comments.length && comments.filter(c => c.value.includes(IGNORE_KEYWORD)).length) {
+            this.needTransform = false
+          }
+
+          if (SOURCE === TARGET) {
+            this.needTransform = false
+          }
+
+          adapterLib = getAdapterRealPath(opts.lib)
+        },
+        exit(path, state) {
+          if (!this.needTransform) return
+          if (this.isImported) return
+          if (!adapterLib) return
+          const importDeclarations = []
+          // import wx from 'xxx/xxx'
+          if (this[ImportDefaultSpecifierKey]) {
+            importDeclarations.push(t.importDefaultSpecifier(t.identifier(TARGET)))
+          }
+    
+          // when wx2aliapp
+          if (aliasAdapterTarget["my"].indexOf(TARGET) >= 0) {
+            if (this[ImportSpecifiersKey]) {
+              const importSpecifiers = new Set(this[ImportSpecifiersKey])
+              for (const sp of importSpecifiers) {
+                // import {AdapterComponent} from 'xxx/xxx'
+                importDeclarations.push(t.importSpecifier(t.identifier(sp), t.identifier(sp)))
+              }
+            }
+          }
+    
+          if (importDeclarations.length === 0) {
+            return
+          }
+    
+          const importAst = t.importDeclaration(importDeclarations, t.stringLiteral(adapterLib))
+          this.isImported = true
+          path.node.body.unshift(importAst)
+        },
+      },
+
+      Identifier(path,) {
+        if (!this.needTransform) return
         const hasScope = !!path.scope.bindings[SOURCE]
         // 局部重新定义该变量则忽略替换
         if (hasScope) return
         if (path.node.name === SOURCE) {
-          const state = this.file
-          state[ImportDefaultSpecifierKey] = true;
+          this[ImportDefaultSpecifierKey] = true;
           path.replaceWith(t.identifier(TARGET))
         }
       },
@@ -117,7 +115,7 @@ export default function ({types:t}) {
           path.node.callee.name = ADAPTER_COMPOENT;
           path.node.arguments.push(t.Identifier('Component'))
           const state = this.file;
-          state[ImportSpecifiersKey] = safePush(state[ImportSpecifiersKey], ADAPTER_COMPOENT);
+          this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_COMPOENT);
         }
 
         // Page({}) => AdapterPage({},Page) 
@@ -125,14 +123,14 @@ export default function ({types:t}) {
           path.node.callee.name = ADAPTER_PAGE;
           path.node.arguments.push(t.Identifier('Page'))
           const state = this.file;
-          state[ImportSpecifiersKey] = safePush(state[ImportSpecifiersKey], ADAPTER_PAGE);
+          this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_PAGE);
         }
 
         // Behavior({}) => AdapterBehavior({})
         if (path.get("callee").node.name === 'Behavior') {
           path.node.callee.name = ADAPTER_BEHAVIOR;
           const state = this.file
-          state[ImportSpecifiersKey] = safePush(state[ImportSpecifiersKey], ADAPTER_BEHAVIOR);
+          this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_BEHAVIOR);
         }
       }
     }

@@ -1,0 +1,11 @@
+{
+  "sourceMap": true,
+  "presets": ["env"],
+  "plugins": [
+    "lodash",
+    "transform-object-rest-spread",
+    "transform-node-env-inline",
+    "transform-inline-environment-variables",
+    "inline-package-json"
+  ]
+}
