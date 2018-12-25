@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.3"></a>
+## [0.3.3](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.3.2...babel-plugin-transform-miniprogram@0.3.3) (2018-12-25)
+
+
+### Bug Fixes
+
+* 修复有.babelrc文件时,jgb转换有问题 ([8ee1c47](https://github.com/landn172/jgb-transform/commit/8ee1c47))
+* 修复某些情况下wx2aliapp没有适配文件引入 ([4800302](https://github.com/landn172/jgb-transform/commit/4800302))
+
+
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.3.1...babel-plugin-transform-miniprogram@0.3.2) (2018-12-20)
 
