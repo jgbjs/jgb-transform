@@ -7,7 +7,9 @@ const transform = require('../src/index');
 
 expect.extend({
   async transformSwan(received, expected) {
-    const html = await processHtml(received)
+    let html = await processHtml(received)
+    html = format(html);
+    expected = format(expected)
     const pass = html === expected
     if (!pass) {
       console.log(html, '\n', expected)
@@ -18,7 +20,9 @@ expect.extend({
     }
   },
   async transfromAliapp(received, expected) {
-    const html = await processHtml(received, 'aliapp')
+    let html = await processHtml(received, 'aliapp')
+    html = format(html);
+    expected = format(expected)
     const pass = html === expected
     if (!pass) {
       console.log(html, '\n', expected)
@@ -53,6 +57,15 @@ describe('wx => aliapp', () => {
   test('<scroll-view> event', async () => {
     await expect(`<scroll-view bindscrolltoupper="bindscrolltoupper" bindscrolltolower="bindscrolltolower" bindscroll="bindscroll"></scroll-view>`)
       .transfromAliapp(`<scroll-view onScrollToUpper="bindscrolltoupper" onScrollToLower="bindscrolltolower" onScroll="bindscroll"></scroll-view>`)
+  })
+
+  test('ali origin event like will not tranform', async () => {
+    await expect(`<view onTap="bind">
+    <view class="chooseCar" onTap="bindChooseCar"></view>
+    </view>`)
+      .transfromAliapp(`<view onTap="bind">
+      <view class="chooseCar" onTap="bindChooseCar"></view>
+      </view>`)
   })
 })
 

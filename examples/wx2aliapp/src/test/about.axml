@@ -1,0 +1,31 @@
+<!--pages/about/about.wxml-->
+<view class="wrapper">
+	<image class="logo" src="http://res.tuhu.org/images/xcx/logo.png"></image>
+	<view class="logogray" onTap='aaa'>途虎养车</view>
+	<view class="header">途虎养车，2011年创立于上海</view>
+	<view class="header">自此，中国开始有了专业的 “汽车养护电商平台”。</view>
+	<view class="content">
+		<view class="title">我们提供全面的汽车养护服务：</view>
+		<view class="p">换轮胎</view>
+		<view class="p">换机油和滤清器</view>
+		<view class="p">汽车配件日常保养更换</view>
+		<view class="p">汽车美容</view>
+		<view class="p">车内各类用品</view>
+		<view class="p">车险、违章查询等汽车服务</view>
+	</view>
+	<view class="content">
+		<view class="title">服务方式：</view>
+		<view class="p">预约：客户在途虎平台订购商品、预约服务门店 </view>
+		<view class="p">安装：途虎将商品送达门店、客户前往完成服务</view>
+	</view>
+	<view class="content">
+		<view class="title">全平台7*12预约：</view>
+		<view class="p">网站、电话、APP、支付宝小程序</view>
+	</view>
+	<view class="content">
+		<view class="title">上万家合作服务门店：</view>
+		<view class="p">目前途虎有10000多家合作安装门店，服务能力覆盖31个省直辖市、395个城市 。</view>
+	</view>
+	<view class="tip">途虎养车，深受欢迎的汽车养护电商平台！我们希望客户：</view>
+	<image class="footer" src="http://res.tuhu.org/images/xcx/slogan.png"></image>
+</view>
