@@ -1,4 +1,4 @@
-Page({
+wx.Page({
   onShareAppMessage() {
     return {
       title: '小程序接口能力展示',

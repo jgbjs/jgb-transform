@@ -113,7 +113,7 @@ PluginTester({
   plugin,
   pluginOptions: {
     source: 'wx',
-    target: 'aliapp',
+    target: 'my',
   },
   tests: {
     "ali: var request = wx.request": {
@@ -142,6 +142,20 @@ PluginTester({
     "ali: while not replace App": {
       code: `App({});`,
       output: `App({});`,
+    },
+    "Page assignment": {
+      code: `const oldPage = Page;
+      wx.Page = Page;`,
+      output: `import my, { WrapPage } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      const oldPage = WrapPage(Page);
+      my.Page = WrapPage(Page);`
+    },
+    "Component assignment": {
+      code: `const oldComponent = Component;
+      wx.Component = Component;`,
+      output: `import my, { WrapComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      const oldComponent = WrapComponent(Component);
+      my.Component = WrapComponent(Component);`
     }
   }
 })

@@ -13,6 +13,12 @@ export default function AdapterAliappPage(opts, InjectPage = Page) {
   InjectPage(opts)
 }
 
+export function WrapPage(InjectPage = Page) {
+  return (opts) => {
+    AdapterAliappPage(opts, InjectPage)
+  }
+}
+
 /**
  * 扩展实例属性
  * @param {*} ctx 

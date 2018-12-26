@@ -17,8 +17,10 @@ let adapterLib = '';
 const DEFAULT_LIB = 'miniapp-adapter';
 const IGNORE_KEYWORD = '@jgb-ignore'
 const ADAPTER_COMPOENT = 'AdapterComponent'
+const COMPONENT_WRAP = 'WrapComponent'
 const ADAPTER_BEHAVIOR = 'AdapterBehavior'
 const ADAPTER_PAGE = 'AdapterPage'
+const PAGE_WRAP = 'WrapPage'
 
 /** 设置是否需要导入默认需要替换的适配库  */
 const ImportDefaultSpecifierKey = 'needImportDefaultSpecifier'
@@ -73,7 +75,7 @@ export default function ({types:t}) {
           if (this[ImportDefaultSpecifierKey]) {
             importDeclarations.push(t.importDefaultSpecifier(t.identifier(TARGET)))
           }
-    
+
           // when wx2aliapp
           if (aliasAdapterTarget["my"].indexOf(TARGET) >= 0) {
             if (this[ImportSpecifiersKey]) {
@@ -84,15 +86,68 @@ export default function ({types:t}) {
               }
             }
           }
-    
+
           if (importDeclarations.length === 0) {
             return
           }
-    
+
           const importAst = t.importDeclaration(importDeclarations, t.stringLiteral(adapterLib))
           this.isImported = true
           path.node.body.unshift(importAst)
         },
+      },
+      /**
+       *  const oldPage = Page;
+       *  =>
+       *  const oldPage = WrapPage(Page);
+       */
+      VariableDeclarator(path) {
+        // when wx2aliapp replace
+        if (aliasAdapterTarget["my"].indexOf(TARGET) < 0) {
+          return
+        }
+        const init = path.get('init')
+        if (!t.isIdentifier(init)) return
+        const name = init.node.name
+        switch (name) {
+          case 'Page':
+            init.replaceWith(t.callExpression(t.identifier(PAGE_WRAP), [t.identifier(name)]));
+            this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], PAGE_WRAP);
+            break;
+
+          case 'Component':
+            init.replaceWith(t.callExpression(t.identifier(COMPONENT_WRAP), [t.identifier(name)]));
+            this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], COMPONENT_WRAP);
+            break;
+        }
+      },
+      /**
+       *  wx.oldPage = Page;
+       *  =>
+       *  wx.oldPage = WrapPage(Page);
+       */
+
+      AssignmentExpression(path) {
+        // when wx2aliapp replace
+        if (aliasAdapterTarget["my"].indexOf(TARGET) < 0) {
+          return
+        }
+
+        const right = path.get('right')
+        if (!t.isIdentifier(right)) return
+
+        const name = right.node.name
+        switch (name) {
+          case 'Page':
+            right.replaceWith(t.callExpression(t.identifier(PAGE_WRAP), [t.identifier(name)]));
+            this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], PAGE_WRAP);
+            break;
+
+          case 'Component':
+            right.replaceWith(t.callExpression(t.identifier(COMPONENT_WRAP), [t.identifier(name)]));
+            this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], COMPONENT_WRAP);
+            break;
+        }
       },
 
       Identifier(path,) {
@@ -110,27 +165,31 @@ export default function ({types:t}) {
         if (aliasAdapterTarget["my"].indexOf(TARGET) < 0) {
           return
         }
-        // Component({}) => AdapterComponent({},Component)
-        if (path.get("callee").node.name === 'Component') {
-          path.node.callee.name = ADAPTER_COMPOENT;
-          path.node.arguments.push(t.Identifier('Component'))
-          const state = this.file;
-          this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_COMPOENT);
-        }
 
-        // Page({}) => AdapterPage({},Page) 
-        if (path.get("callee").node.name === 'Page') {
-          path.node.callee.name = ADAPTER_PAGE;
-          path.node.arguments.push(t.Identifier('Page'))
-          const state = this.file;
-          this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_PAGE);
-        }
+        const callee = path.get("callee")
+        const name = callee.node.name
 
-        // Behavior({}) => AdapterBehavior({})
-        if (path.get("callee").node.name === 'Behavior') {
-          path.node.callee.name = ADAPTER_BEHAVIOR;
-          const state = this.file
-          this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_BEHAVIOR);
+        switch (name) {
+          // Component({}) => AdapterComponent({},Component)
+          case 'Component':
+            path.node.callee.name = ADAPTER_COMPOENT;
+            path.node.arguments.push(t.Identifier(name))
+            this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_COMPOENT);
+            break;
+          // Page({}) => AdapterPage({},Page) 
+          case 'Page':
+            path.node.callee.name = ADAPTER_PAGE;
+            path.node.arguments.push(t.Identifier(name))
+            this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_PAGE);
+            break;
+          // Behavior({}) => AdapterBehavior({})
+          case 'Behavior':
+            path.node.callee.name = ADAPTER_BEHAVIOR;
+            this[ImportSpecifiersKey] = safePush(this[ImportSpecifiersKey], ADAPTER_BEHAVIOR);
+            break;
+
+          default:
+            break;
         }
       }
     }

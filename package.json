@@ -11,6 +11,8 @@
   },
   "scripts": {
     "publish": "lerna publish",
+    "build:all":"lerna run build --parallel",
+    "watch:all":"lerna run --parallel build -- --watch",
     "sub:remote.add": "git remote add -f weapp git@github.com:jgbjs/miniprogram-demo.git",
     "sub:add": "git subtree add --prefix=examples/wx2swan/src weapp master --squash",
     "sub:pull": "git subtree pull --prefix=examples/wx2swan/src weapp master --squash",

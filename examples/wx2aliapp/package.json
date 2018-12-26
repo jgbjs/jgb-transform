@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "C:\\Users\\tuhuadmin\\scoop\\apps\\yarn\\current\\bin\\jgb build -t aliapp --no-cache"
+    "debug": "C:\\Users\\tuhuadmin\\scoop\\apps\\yarn\\current\\bin\\jgb build -t aliapp --no-cache"
   },
   "devDependencies": {
     "babel-plugin-inline-package-json": "^2.0.0",

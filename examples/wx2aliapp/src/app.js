@@ -1,5 +1,7 @@
 const openIdUrl = require('./config').openIdUrl
 
+wx.Page = Page;
+
 App({
   onLaunch(opts) {
     console.log('App Launch', opts)

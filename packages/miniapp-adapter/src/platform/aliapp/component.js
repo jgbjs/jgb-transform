@@ -17,6 +17,12 @@ export default function AdapterAliappComponent(opts, InjectComponent = Component
   InjectComponent(opts)
 }
 
+export function WrapComponent(InjectComponent = Component) {
+  return (opts) => {
+    AdapterAliappComponent(opts, InjectComponent)
+  }
+}
+
 export function AdapterComponent(opts) {
   // 新的生命周期声明方式
   const lifetimes = opts.lifetimes || {};

@@ -1,7 +1,7 @@
 import { ProxyInvokePlatformApi, Extend } from "../../utils/index";
-import AdapterComponent from './component'
+import AdapterComponent, { WrapComponent } from './component'
 import AdapterBehavior from './behavior'
-import AdapterPage from './page'
+import AdapterPage, { WrapPage } from './page'
 import * as NetWork from "./network";
 import * as Wxml from './wxml'
 console.log("invoke aliapp");
@@ -15,4 +15,4 @@ Extend(api, Wxml)
 
 export default ProxyInvokePlatformApi(api);
 
-export { AdapterComponent, AdapterBehavior, AdapterPage }
+export { AdapterComponent, AdapterBehavior, AdapterPage, WrapComponent, WrapPage }
