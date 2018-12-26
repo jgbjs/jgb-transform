@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/landn172/jgb-transform/compare/wx2swan@1.1.3...wx2swan@1.2.0) (2018-12-26)
+
+
+### Features
+
+* 增加Page或者Component以赋值形式的替换 ([6cf1249](https://github.com/landn172/jgb-transform/commit/6cf1249))
+
+
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/landn172/jgb-transform/compare/wx2swan@1.1.2...wx2swan@1.1.3) (2018-12-25)
 

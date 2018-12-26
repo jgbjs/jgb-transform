@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.3.3...babel-plugin-transform-miniprogram@0.4.0) (2018-12-26)
+
+
+### Features
+
+* 增加Page或者Component以赋值形式的替换 ([6cf1249](https://github.com/landn172/jgb-transform/commit/6cf1249))
+
+
+
+
+
 <a name="0.3.3"></a>
 ## [0.3.3](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.3.2...babel-plugin-transform-miniprogram@0.3.3) (2018-12-25)
 
