@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/landn172/jgb-transform/compare/wx2aliapp@1.2.0...wx2aliapp@1.2.1) (2018-12-27)
+
+
+### Bug Fixes
+
+* 修复转换aliapp时适配一些bug ([971982f](https://github.com/landn172/jgb-transform/commit/971982f))
+
+
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/landn172/jgb-transform/compare/wx2aliapp@1.1.3...wx2aliapp@1.2.0) (2018-12-26)
 
