@@ -13,5 +13,12 @@ Component({
       }
     },
     myProperty2: String // 简化的定义方式
+  },
+  methods: {
+    trigger() {
+      this.triggerEvent('getprop', {
+        p: this.properties.myProperty
+      })
+    }
   }
 })

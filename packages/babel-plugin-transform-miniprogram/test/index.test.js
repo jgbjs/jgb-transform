@@ -116,6 +116,14 @@ PluginTester({
     target: 'my',
   },
   tests: {
+    "test ignore key: @jgb-ignore": {
+      code: `// @jgb-ignore
+      wx.request();
+      Component({});`,
+      output: `// @jgb-ignore
+      wx.request();
+      Component({});`
+    },
     "ali: var request = wx.request": {
       code: `var request = wx.request;`,
       output: `import my from "miniapp-adapter/lib/platform/aliapp/index.js";

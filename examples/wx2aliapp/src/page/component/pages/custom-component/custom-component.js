@@ -1,6 +1,7 @@
 Page({
   data: {
     mprop: 'test-props',
+    extra: 'custom-component-data-extra'
   },
   changeTestPropsValue() {
     this.setData({
@@ -8,7 +9,10 @@ Page({
     })
   },
   getComponent() {
-    const comps = this.selectAllComponents('.test')
+    const comps = this.selectComponent('.test')
     console.log(comps)
+  },
+  onGetProp(e) {
+    console.log('onGetProp', e)
   }
 })

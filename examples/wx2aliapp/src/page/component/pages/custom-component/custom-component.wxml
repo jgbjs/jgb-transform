@@ -1,4 +1,5 @@
-<test-props my-property="{{mprop}}" id="id-test-props" class="test"></test-props>
+<test-props my-property="{{mprop}}" id="id-test-props" class="test" bind:getprop="onGetProp"></test-props>
 <button bind:tap="changeTestPropsValue">click change [test-props] value</button>
 <test-behaviors id="id-test-behaviors" class="test test-behaviors"></test-behaviors>
 <button bind:tap="getComponent">Page:getComponent</button>
+<nc-component extra="extra" onCounterPlusOne="getComponent"></nc-component>

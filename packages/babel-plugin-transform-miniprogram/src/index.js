@@ -64,6 +64,11 @@ export default function ({types:t}) {
             this.needTransform = false
           }
 
+          if (this.needTransform === false) {
+            path.stop();
+            return;
+          }
+
           adapterLib = getAdapterRealPath(opts.lib)
         },
         exit(path, state) {

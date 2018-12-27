@@ -43,6 +43,7 @@ export function AdapterComponent(opts) {
 
   // lifetimes methods
   let {created, attached, ready, moved, detached} = opts;
+  const {didUpdate, didUnmount, didMount} = opts;
 
   // remove lifetimes methods
   delete opts.lifetimes;
@@ -54,7 +55,8 @@ export function AdapterComponent(opts) {
   const observers = []
 
   /** 为自定义组件更新后的回调，每次组件数据变更的时候都会调用。  */
-  opts.didUpdate = function didUpdate(prevProps) {
+  opts.didUpdate = function(...args) {
+    const [prevProps] = args
     const props = this.props || {}
     Object.keys(props).forEach(key => {
       const oldVal = prevProps[key]
@@ -66,20 +68,28 @@ export function AdapterComponent(opts) {
         }
       }
     })
+
+    didUpdate && didUpdate.call(this, ...args)
   }
 
   /** 为自定义组件被卸载后的回调，每当组件示例从页面卸载的时候都会触发此回调。  */
-  opts.didUnmount = function didUnmount() {
-    detached && detached.call(this)
+  opts.didUnmount = function(...args) {
+    detached && detached.call(this);
+    removeComponentToPage.call(this);
+    didUnmount && didUnmount.call(this, ...args)
   }
 
   /** 为自定义组件首次渲染完毕后的回调，此时页面已经渲染，通常在这时请求服务端数据比较合适。  */
-  opts.didMount = function didMount() {
+  opts.didMount = function(...args) {
+    addComponentToPage.call(this)
+
     extendInstance.call(this)
 
     created && created.call(this)
     attached && attached.call(this)
     ready && ready.call(this)
+
+    didMount && didMount.call(this, ...args)
   }
 
   // properties => props
@@ -106,13 +116,14 @@ export function AdapterComponent(opts) {
 
     delete opts.properties;
   } else {
-    opts.props = {}
+    opts.props = opts.props || {}
   }
 
+  // 收集triggerEvent 并在props中注册
   const fns = getOptionsTriggerEvent(opts);
   if (fns && fns.length) {
     fns.forEach(({eventName}) => {
-      opts.props.eventName = (data) => console.log(data)
+      opts.props[eventName] = (data) => console.log(data)
     })
   }
 
@@ -121,6 +132,25 @@ export function AdapterComponent(opts) {
 
 const MATCH_BIND_FUNC = /bind([a-zA-Z0-9]+)/
 const MATCH_TRIGGEREVENT_PARAMS = /this\.triggerEvent\((.+)\)/g
+
+const PAGE_COMPONENTS = '$components$'
+
+function addComponentToPage() {
+  if (!this.$page) return
+  if (!this.$page[PAGE_COMPONENTS]) {
+    this.$page[PAGE_COMPONENTS] = new Set();
+  }
+
+  const components = this.$page[PAGE_COMPONENTS]
+  if (components.has(this)) return;
+  components.add(this);
+}
+
+function removeComponentToPage() {
+  if (!this.$page || !this.$page[PAGE_COMPONENTS]) return
+  const components = this.$page[PAGE_COMPONENTS]
+  components.delete(this)
+}
 
 /**
  * 扩展实例属性
@@ -204,15 +234,24 @@ function getOptionsTriggerEvent(opts = {}) {
 export function selectAllComponents(selector) {
   // this.$page 为 Component中对当前页面的实例
   const $page = this.$page || this
-  const results = []
+  let results = []
+  const components = $page[PAGE_COMPONENTS]
   if (!$page.$getComponentBy) {
-    return []
+    if (!components) {
+      return []
+    }
+    results = [...components]
   }
 
   // 支付宝内部查询所有节点
   $page.$getComponentBy((result) => {
     results.push(result)
   })
+
+  // 备用方案
+  if (results.length === 0) {
+    results = [...components]
+  }
 
   // 等待
   return results.filter(r => {
@@ -233,8 +272,8 @@ export function selectAllComponents(selector) {
 }
 
 export function selectComponent(selector) {
-  const components = selectAllComponents(selector);
-  return components.length ? components[0] : []
+  const components = selectAllComponents.call(this, selector);
+  return components.length ? components[0] : undefined;
 }
 
 function cannotAchieveComponentInstanceFunctions(ctx) {
