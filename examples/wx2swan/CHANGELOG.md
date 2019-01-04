@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/landn172/jgb-transform/compare/wx2swan@1.2.1...wx2swan@1.3.0) (2019-01-04)
+
+
+### Features
+
+* 补全微信转支付宝api差异 ([4912cad](https://github.com/landn172/jgb-transform/commit/4912cad))
+
+
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/landn172/jgb-transform/compare/wx2swan@1.2.0...wx2swan@1.2.1) (2018-12-27)
 
