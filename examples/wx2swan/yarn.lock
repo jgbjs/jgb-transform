@@ -29,6 +29,11 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/jest@^23.3.11":
+  version "23.3.11"
+  resolved "http://registry.npm.taobao.org/@types/jest/download/@types/jest-23.3.11.tgz#d3a936ae753d9e484965f5cbd19027c2b8af2551"
+  integrity sha1-06k2rnU9nkhJZfXL0ZAnwrivJVE=
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "http://registry.npm.taobao.org/@types/minimatch/download/@types/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"

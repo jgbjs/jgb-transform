@@ -28,6 +28,7 @@
     "url": "https://github.com/landn172/jgb-transform/issues"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.11",
     "jest": "^23.6.0",
     "posthtml": "^0.11.3",
     "pretty": "^2.0.0"

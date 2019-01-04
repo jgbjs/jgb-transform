@@ -18,6 +18,11 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@types/jest@^23.3.11":
+  version "23.3.11"
+  resolved "http://registry.npm.taobao.org/@types/jest/download/@types/jest-23.3.11.tgz#d3a936ae753d9e484965f5cbd19027c2b8af2551"
+  integrity sha1-06k2rnU9nkhJZfXL0ZAnwrivJVE=
+
 "@types/node@^10.11.7":
   version "10.12.0"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
@@ -2745,11 +2750,6 @@ mimic-fn@^1.0.0:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/mimic-fn/download/mimic-fn-1.2.0.tgz#820c86a39334640e99516928bd03fca88057d022"
   integrity sha1-ggyGo5M0ZA6ZUWkovQP8qIBX0CI=
-
-miniapp-adapter@1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/miniapp-adapter/download/miniapp-adapter-1.2.1.tgz#25905b2ac026c047120cf5ecd08334df0f0bffb2"
-  integrity sha1-JZBbKsAmwEcSDPXs0IM03w8L/7I=
 
 minimatch@^3.0.3, minimatch@^3.0.4:
   version "3.0.4"

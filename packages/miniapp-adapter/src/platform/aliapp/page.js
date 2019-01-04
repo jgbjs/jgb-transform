@@ -1,7 +1,9 @@
+// @jgb-ignore
+
 import { selectAllComponents, selectComponent } from './component'
 import { defineProperty } from '../../utils/index'
 
-export default function AdapterAliappPage(opts, InjectPage = Page) {
+export default function AdapterAliappPage(opts, ...otherOpts) {
   const oldLoad = opts.onLoad || (() => {
   });
 
@@ -9,6 +11,9 @@ export default function AdapterAliappPage(opts, InjectPage = Page) {
     extendInstance.call(this)
     oldLoad.apply(this, args)
   }
+
+  // 取最后一个参数作为Page
+  const InjectPage = otherOpts.length ? (otherOpts[otherOpts.length - 1] || Page) : Page;
 
   InjectPage(opts)
 }

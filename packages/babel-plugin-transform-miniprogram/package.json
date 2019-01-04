@@ -30,6 +30,7 @@
     "resolve": "^1.8.1"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.11",
     "babel-plugin-tester": "^5.5.2",
     "babel-preset-env": "^1.7.0",
     "jest": "^23.6.0",

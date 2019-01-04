@@ -27,12 +27,23 @@ Page({
         for (const key in rect) {
           if (key !== 'id' && key !== 'dataset') {
             const val = rect[key]
-            metrics.push({key, val})
+            metrics.push({
+              key,
+              val
+            })
           }
         }
 
-        this.setData({metrics})
+        this.setData({
+          metrics
+        })
       }
+    });
+
+    wx.createSelectorQuery().select('.target').fields({
+      size: true
+    }).exec((res) => {
+      console.log(res)
     })
   }
 

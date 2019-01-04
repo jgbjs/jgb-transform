@@ -1,4 +1,4 @@
-const miniappAdapter = require('../lib')
+const miniappAdapter = require('../src')
 const requireAdapterPath = miniappAdapter.default
 const extendSupportPlatform = miniappAdapter.extendSupportPlatform
 
