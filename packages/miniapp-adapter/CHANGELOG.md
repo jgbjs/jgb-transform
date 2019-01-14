@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.5.0...miniapp-adapter@1.5.1) (2019-01-14)
+
+
+### Bug Fixes
+
+* 修复adpater aliapp.api.createSelectorQuery.fields 的适配问题 ([f04d60c](https://github.com/landn172/jgb-transform/commit/f04d60c))
+
+
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.4.1...miniapp-adapter@1.5.0) (2019-01-04)
 
