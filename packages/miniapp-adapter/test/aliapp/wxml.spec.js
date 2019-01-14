@@ -86,7 +86,29 @@ class MockSelectorQuery {
   _boundingClientRect(step) {
     const {name, args} = step
     const result = this._query(name, args);
-    return result;
+    return this.pickResult(result, ['width', 'height', 'top', 'left', 'right', 'bottom']);
+  }
+
+  /** 选取result某些字段 */
+  pickResult(result, picks) {
+    if (Array.isArray(result)) {
+      return result.map(value => {
+        return this._pick(value, picks)
+      })
+    }
+
+    return this._pick(result, picks)
+  }
+
+  _pick(result, picks) {
+    if (!result) {
+      return result;
+    }
+    const ret = {};
+    picks.forEach(key => {
+      ret[key] = result[key];
+    })
+    return ret;
   }
 
   scrollOffset() {
@@ -99,7 +121,7 @@ class MockSelectorQuery {
   _scrollOffset(step) {
     const {name, args} = step
     const result = this._query(name, args);
-    return result;
+    return this.pickResult(result, ['scrollTop', 'scrollLeft',]);
   }
 
   _query(name, args) {
@@ -175,11 +197,11 @@ describe('selectorQuery', () => {
   test('select(#one).boundingClientRect', () => {
     wx.createSelectorQuery()
       .select('#one').boundingClientRect((result) => {
-      expect(result.y).toBe(2)
+      expect(result.top).toBe(2)
     }).exec((ret) => {
       expect(Array.isArray(ret)).toBeTruthy()
       const result = ret[0]
-      expect(result.x).toBe(1)
+      expect(result.top).toBe(2)
     });
   })
 
@@ -188,7 +210,6 @@ describe('selectorQuery', () => {
       .selectAll('.all').boundingClientRect((result) => {
       expect(Array.isArray(result)).toBeTruthy();
       expect(result.length).toBe(2);
-      expect(result[0].y).toBe(-34)
     }).exec((ret) => {
       expect(ret.length).toBe(1)
       const result = ret[0];
@@ -219,6 +240,27 @@ describe('mock selectorQuery.fields', () => {
       .selectAll('.all')
       .fields({
         size: true
+      }, (result) => {
+        expect(Array.isArray(result)).toBeTruthy();
+        expect(result.length).toBe(2);
+        expect(result[0].width).toBe(1367);
+        expect(result[1].height).toBe(18);
+      }).exec((ret) => {
+      const result = ret[0];
+      expect(Array.isArray(result)).toBeTruthy();
+      expect(result.length).toBe(2);
+      expect(result[0].width).toBe(1367);
+      expect(result[1].height).toBe(18);
+    })
+  })
+
+  test('selectall(.all).fields({size,scrollOffset,rect})', () => {
+    wx.createSelectorQuery()
+      .selectAll('.all')
+      .fields({
+        size: true,
+        scrollOffset: true,
+        rect: true
       }, (result) => {
         expect(Array.isArray(result)).toBeTruthy();
         expect(result.length).toBe(2);

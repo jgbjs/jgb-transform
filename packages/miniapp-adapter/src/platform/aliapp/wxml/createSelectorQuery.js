@@ -225,7 +225,7 @@ class MergeBatch {
         ret = [].concat(result)
           .map((mergeResult, idx) => {
             if (ret[idx]) {
-              Object.assign(ret[idx], mergeResult)
+              return Object.assign(ret[idx], mergeResult)
             }
             return mergeResult
           });

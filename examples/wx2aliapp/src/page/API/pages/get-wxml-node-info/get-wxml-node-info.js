@@ -41,7 +41,9 @@ Page({
     });
 
     wx.createSelectorQuery().select('.target').fields({
-      size: true
+      size: true,
+      scrollOffset: true,
+      rect: true
     }).exec((res) => {
       console.log(res)
     })
