@@ -79,7 +79,9 @@ function transformAliappEventAttr(node) {
     const attr = eventStartKey.replace('bind', 'on') + evtName;
     const value = attrs[key]
     attrs[attr] = value === '' ? true : value
-    delete attrs[key]
+    if (attr !== key) {
+      delete attrs[key]
+    }
   })
   return node;
 }

@@ -61,10 +61,10 @@ describe('wx => aliapp', () => {
 
   test('ali origin event like will not tranform', async () => {
     await expect(`<view onTap="bind">
-    <view class="chooseCar" onTap="bindChooseCar"></view>
+    <view class="chooseCar" onTap="bindTap" catchTap="catchTap"></view>
     </view>`)
       .toBeAliapp(`<view onTap="bind">
-      <view class="chooseCar" onTap="bindChooseCar"></view>
+      <view class="chooseCar" onTap="bindTap" catchTap="catchTap"></view>
       </view>`)
   })
 
