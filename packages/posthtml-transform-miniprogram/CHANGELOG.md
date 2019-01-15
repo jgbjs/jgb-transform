@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.4.2"></a>
+## [0.4.2](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.4.1...posthtml-transform-miniprogram@0.4.2) (2019-01-15)
+
+
+### Bug Fixes
+
+* 修复wx=>aliapp默认catchtap会被删除 ([2b050a3](https://github.com/landn172/jgb-transform/commit/2b050a3))
+
+
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.4.0...posthtml-transform-miniprogram@0.4.1) (2019-01-15)
 
