@@ -4,6 +4,8 @@
 
 ## Usage
 
+> target 可选参数：swan，aliapp（my）
+
 ```js
 const posthtml = require('posthtml');
 const transform = require('posthtml-transform-miniprogram');
