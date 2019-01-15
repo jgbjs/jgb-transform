@@ -75,7 +75,8 @@ function transformAliappEventAttr(node) {
     if (!evtName) {
       evtName = eventName[0].toUpperCase() + eventName.slice(1)
     }
-    const attr = 'on' + evtName;
+    // bind => on, 否则默认
+    const attr = eventStartKey.replace('bind', 'on') + evtName;
     const value = attrs[key]
     attrs[attr] = value === '' ? true : value
     delete attrs[key]

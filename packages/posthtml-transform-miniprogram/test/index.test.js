@@ -6,7 +6,7 @@ const transform = require('../src/index');
 
 
 expect.extend({
-  async transformSwan(received, expected) {
+  async toBeSwan(received, expected) {
     let html = await processHtml(received)
     html = format(html);
     expected = format(expected)
@@ -19,7 +19,7 @@ expect.extend({
       message: () => pass ? `` : `not match`
     }
   },
-  async transfromAliapp(received, expected) {
+  async toBeAliapp(received, expected) {
     let html = await processHtml(received, 'aliapp')
     html = format(html);
     expected = format(expected)
@@ -51,33 +51,40 @@ function processHtml(received, target = 'swan') {
 describe('wx => aliapp', () => {
   test('wx:if => a:if', async () => {
     await expect(`<view wx:if="{{data}}"></view>`)
-      .transfromAliapp(`<view a:if="{{data}}"></view>`)
+      .toBeAliapp(`<view a:if="{{data}}"></view>`)
   })
 
   test('<scroll-view> event', async () => {
     await expect(`<scroll-view bindscrolltoupper="bindscrolltoupper" bindscrolltolower="bindscrolltolower" bindscroll="bindscroll"></scroll-view>`)
-      .transfromAliapp(`<scroll-view onScrollToUpper="bindscrolltoupper" onScrollToLower="bindscrolltolower" onScroll="bindscroll"></scroll-view>`)
+      .toBeAliapp(`<scroll-view onScrollToUpper="bindscrolltoupper" onScrollToLower="bindscrolltolower" onScroll="bindscroll"></scroll-view>`)
   })
 
   test('ali origin event like will not tranform', async () => {
     await expect(`<view onTap="bind">
     <view class="chooseCar" onTap="bindChooseCar"></view>
     </view>`)
-      .transfromAliapp(`<view onTap="bind">
+      .toBeAliapp(`<view onTap="bind">
       <view class="chooseCar" onTap="bindChooseCar"></view>
       </view>`)
+  })
+
+  test('wx event bind style', async () => {
+    await expect(`<view bind:tap="bindTap" catch:tap="catchTap"></view>`)
+      .toBeAliapp(`<view onTap="bindTap" catchTap="catchTap"></view>`)
+    await expect(`<view bindtap="bindTap" catchtap="catchTap"></view>`)
+      .toBeAliapp(`<view onTap="bindTap" catchTap="catchTap"></view>`)
   })
 })
 
 describe('wx => swan', () => {
   test('wx:if => s-if', async () => {
     await expect(`<view wx:if="{{data}}"></view>`)
-      .transformSwan(`<view s-if="{{data}}"></view>`)
+      .toBeSwan(`<view s-if="{{data}}"></view>`)
   });
 
   test('wx:for => s-for', async () => {
     await expect(`<view wx:for="{{data}}" wx:for-item="item" wx:for-index="idx" wx:key="key"></view>`)
-      .transformSwan(`<view s-for="{{data}}" s-for-item="item" s-for-index="idx" s-key="key"></view>`)
+      .toBeSwan(`<view s-for="{{data}}" s-for-item="item" s-for-index="idx" s-key="key"></view>`)
   })
 
   test(`wx:if => s-if`, async () => {
@@ -85,7 +92,7 @@ describe('wx => swan', () => {
     <view wx:if="{{length > 5}}"> 1 </view>
     <view wx:elif="{{length > 2}}"> 2 </view>
     <view wx:else> 3 </view>`)
-      .transformSwan(format(`
+      .toBeSwan(format(`
     <view s-if="{{length > 5}}"> 1 </view>
     <view s-elif="{{length > 2}}"> 2 </view>
     <view s-else> 3 </view>`))
@@ -93,12 +100,12 @@ describe('wx => swan', () => {
 
   test(`template: {{}} => {{{}}}`, async () => {
     await expect(`<template is="msgItem" data="{{...item}}" />`)
-      .transformSwan(`<template is="msgItem" data="{{{...item}}}"></template>`)
+      .toBeSwan(`<template is="msgItem" data="{{{...item}}}"></template>`)
   })
 
   test(`scroll-view: {{data}} => {= data =}`, async () => {
     await expect(`<scroll-view scroll-top="{{scrollTop}}"></scroll-view>`)
-      .transformSwan(`<scroll-view scroll-top="{= scrollTop =}"></scroll-view>`)
+      .toBeSwan(`<scroll-view scroll-top="{= scrollTop =}"></scroll-view>`)
   })
 
   test(`auto add block when wx:if and wx:for in same tag`, async() => {
@@ -106,7 +113,7 @@ describe('wx => swan', () => {
     <view wx:for="{{items}}" wx:if="{{items}}">
       <view>data</view>
     </view>`)
-      .transformSwan(format(`
+      .toBeSwan(format(`
     <block s-for="{{items}}">
       <view s-if="{{items}}">
         <view>data</view>
