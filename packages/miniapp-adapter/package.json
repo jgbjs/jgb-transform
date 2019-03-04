@@ -15,7 +15,7 @@
   "scripts": {
     "build": "babel src/ --out-dir lib/ --source-maps inline",
     "test": "jest",
-    "prepublish": "yarn run build && yarn run test"
+    "prepublishOnly": "yarn run build && yarn run test"
   },
   "devDependencies": {
     "@types/jest": "^23.3.11",

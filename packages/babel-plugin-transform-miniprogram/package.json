@@ -18,8 +18,8 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "babel src/ --out-dir lib --source-maps inline",
-    "prepublish": "npm run build && npm run test"
+    "build": "babel src/ --out-dir lib --source-maps inline --presets=@babel/preset-env",
+    "prepublishOnly": "npm run build && npm run test"
   },
   "bugs": {
     "url": "https://github.com/landn172/jgb-transform/issues"
@@ -30,9 +30,11 @@
     "resolve": "^1.8.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "@types/jest": "^23.3.11",
-    "babel-plugin-tester": "^5.5.2",
-    "babel-preset-env": "^1.7.0",
+    "babel-plugin-tester": "^6.0.0",
     "jest": "^23.6.0",
     "js-beautify": "^1.8.7"
   }

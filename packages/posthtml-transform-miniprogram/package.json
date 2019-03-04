@@ -22,7 +22,7 @@
   "scripts": {
     "test": "jest",
     "build": "babel src/ --out-dir lib --source-maps inline",
-    "prepublish": "npm run build && npm run test"
+    "prepublishOnly": "npm run build && npm run test"
   },
   "bugs": {
     "url": "https://github.com/landn172/jgb-transform/issues"
