@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.5.2...babel-plugin-transform-miniprogram@0.6.0) (2019-05-09)
+
+
+### Features
+
+* 增加头条编译支持 ([7589d6d](https://github.com/landn172/jgb-transform/commit/7589d6d))
+
+
+
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.5.1...babel-plugin-transform-miniprogram@0.5.2) (2019-03-04)
 
