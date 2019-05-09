@@ -31,6 +31,19 @@ expect.extend({
       pass,
       message: () => pass ? `` : `not match`
     }
+  },
+  async toBeToutiao(received, expected) {
+    let html = await processHtml(received, 'tt')
+    html = format(html);
+    expected = format(expected)
+    const pass = html === expected
+    if (!pass) {
+      console.log(html, '\n', expected)
+    }
+    return {
+      pass,
+      message: () => pass ? `` : `not match`
+    }
   }
 })
 
@@ -120,5 +133,17 @@ describe('wx => swan', () => {
       </view>
     </block>`))
 
+  })
+})
+
+describe('wx => tt', () => {
+  test('wx:if => tt:if', async () => {
+    await expect(`<view wx:if="{{data}}"></view>`)
+      .toBeToutiao(`<view tt:if="{{data}}"></view>`)
+  });
+
+  test('wx:for => tt:for', async () => {
+    await expect(`<view wx:for="{{array}}"></view>`)
+      .toBeToutiao(`<view tt:for="{{array}}"></view>`)
   })
 })

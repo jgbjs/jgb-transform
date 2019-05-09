@@ -1,4 +1,4 @@
-export const SUPPORT_PLATFORMS = ["wechat", "aliapp", "baidu", "h5"];
+export const SUPPORT_PLATFORMS = ["wechat", "aliapp", "baidu", "h5", "tt"];
 
 const configRequireConfig = SUPPORT_PLATFORMS.map(name => {
   return {

@@ -33,10 +33,22 @@ export const aliappAttrs = [
   'a:else'
 ]
 
+// 头条
+export const ttAttrs = [
+  'tt:for',
+  'tt:for-index',
+  'tt:for-item',
+  'tt:key',
+  'tt:if',
+  'tt:elif',
+  'tt:else'
+]
+
 export const mapping = {
   attr: {
     wx: wxAttrs,
     swan: swanAttrs,
-    aliapp: aliappAttrs
+    aliapp: aliappAttrs,
+    tt: ttAttrs
   }
 }

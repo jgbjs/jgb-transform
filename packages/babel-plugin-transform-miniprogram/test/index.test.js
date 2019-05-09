@@ -1,6 +1,5 @@
-import pluginTester from 'babel-plugin-tester'
-import * as path from 'path'
-import plugin from '../src'
+import pluginTester from 'babel-plugin-tester';
+import plugin from '../src';
 
 const beautify = require('js-beautify').js
 
@@ -166,4 +165,82 @@ PluginTester({
       my.Component = WrapComponent(Component);`
     }
   }
+})
+
+PluginTester({
+  pluginName: `babel-plugin-transform-wx-to-tt`,
+  plugin,
+  pluginOptions: {
+    source: 'wx',
+    target: 'tt',
+  },
+  // fixtures: path.join(__dirname, 'fixtures'),
+  tests: {
+    "const defefine wx: not transform": {
+      code: (`const wx = {};
+      wx.request({});`),
+      output: (`const wx = {};wx.request({});`)
+    },
+    "import wx: not transfrom": {
+      code: (`import wx from 'xxxx';
+      wx.request({});`),
+      output: (`import wx from 'xxxx';
+      wx.request({});`)
+    },
+    "wx.request({})": {
+      code: "wx.request({});",
+      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";      
+      tt.request({});`)
+    },
+    [`wx["request"]({})`]: {
+      code: `wx["request"]({});`,
+      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      tt["request"]({});`),
+    },
+    "var request = wx.request": {
+      code: `var request = wx.request;`,
+      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      var request = tt.request;`)
+    },
+    "var temp = wx": {
+      code: `var temp = wx;`,
+      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      var temp = tt;`)
+    },
+    "var systemInfo = wx.getSystemInfoSync();": {
+      code: `var systemInfo = wx.getSystemInfoSync();`,
+      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      var systemInfo = tt.getSystemInfoSync();`)
+    },
+    [`export default wx`]: {
+      code: `export default wx`,
+      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      export default tt;`
+    },
+    [`module.exports = wx;`]: {
+      code: `module.exports = wx;`,
+      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      module.exports = tt;`
+    },
+    [`function get(ctx = wx) {}`]: {
+      code: `function get(ctx = wx) {}`,
+      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      function get(ctx = tt) {}`
+    },
+    [`(ctx || wx).createSelectorQuery()`]: {
+      code: `(ctx || wx).createSelectorQuery();`,
+      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
+      (ctx || tt).createSelectorQuery();`
+    },
+    [`swan: will not tranform Page,Component,Behavior,App`]: {
+      code: `Component({});
+      App({});
+      Page({});
+      Behavior({});`,
+      output: `Component({});
+      App({});
+      Page({});
+      Behavior({});`
+    }
+  },
 })
