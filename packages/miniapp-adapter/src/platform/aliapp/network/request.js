@@ -1,8 +1,9 @@
 export const request = opts => {
   const {header, success} = opts
-  return my.httpRequest({
+  const innerRequest = my.request || my.httpRequest;
+  return innerRequest({
     ...opts,
-    headers: header,
+    headers: header || opts.headers,
     success(res) {
       const {data, status, headers} = res;
       success && success({
