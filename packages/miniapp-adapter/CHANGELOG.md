@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.6.2"></a>
+## [1.6.2](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.6.1...miniapp-adapter@1.6.2) (2019-06-05)
+
+
+### Bug Fixes
+
+* **miniapp-adapter:** remove api proxy ([fc77c8b](https://github.com/landn172/jgb-transform/commit/fc77c8b))
+
+
+
+
+
 <a name="1.6.1"></a>
 ## [1.6.1](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.6.0...miniapp-adapter@1.6.1) (2019-05-22)
 
