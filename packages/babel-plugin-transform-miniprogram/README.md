@@ -24,7 +24,7 @@ yarn add babel-plugin-transform-miniprogram --dev
 | 选项名 | 说明             | 默认值          | 可选值  |
 | ------ | ---------------- | --------------- | ------- |
 | source | 需要转义的关键字 | wx              |         |
-| target | 替换值           | swan            | swan,my |
+| target | 替换值           | swan            | swan,my,tt |
 | lib    | 适配库（^0.2.0） | miniapp-adapter |         |
 
 ## details
@@ -36,5 +36,3 @@ yarn add babel-plugin-transform-miniprogram --dev
   ```js
   // @jgb-ignore
   ```
-
-* 

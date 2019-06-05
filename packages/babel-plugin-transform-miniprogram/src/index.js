@@ -31,7 +31,7 @@ const mappingAdapterLib = {
   wx: 'wechat',
   swan: 'baidu',
   my: 'aliapp',
-  tt: 'byte'
+  tt: 'tt'
 }
 
 const aliasAdapterTarget = Object.keys(mappingAdapterLib).reduce((obj, key) => {
