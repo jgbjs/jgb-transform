@@ -30,7 +30,8 @@ const ImportSpecifiersKey = 'importSpecifiers'
 const mappingAdapterLib = {
   wx: 'wechat',
   swan: 'baidu',
-  my: 'aliapp'
+  my: 'aliapp',
+  tt: 'byte'
 }
 
 const aliasAdapterTarget = Object.keys(mappingAdapterLib).reduce((obj, key) => {
