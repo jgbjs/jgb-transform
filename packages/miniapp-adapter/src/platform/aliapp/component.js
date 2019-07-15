@@ -1,6 +1,6 @@
 // @jgb-ignore
-import { createSelectorQuery } from './wxml/createSelectorQuery'
-import { defineProperty } from '../../utils/index'
+import { defineProperty } from '../../utils/index';
+import { createSelectorQuery } from './wxml/createSelectorQuery';
 /**
  * 适配微信小程序Component参数的组件方法
  * @param {*} opts 
@@ -43,7 +43,7 @@ export function AdapterComponent(opts) {
 
   // lifetimes methods
   let {created, attached, ready, moved, detached} = opts;
-  const {didUpdate, didUnmount, didMount} = opts;
+  const {didUpdate, didUnmount, didMount,onInit} = opts;
 
   // remove lifetimes methods
   delete opts.lifetimes;
@@ -77,6 +77,12 @@ export function AdapterComponent(opts) {
     detached && detached.call(this);
     removeComponentToPage.call(this);
     didUnmount && didUnmount.call(this, ...args)
+  }
+
+  /** 1.14开始支持，类似create  */
+  opts.onInit = function() {
+    addComponentToPage.call(this);
+    onInit.call(this)
   }
 
   /** 为自定义组件首次渲染完毕后的回调，此时页面已经渲染，通常在这时请求服务端数据比较合适。  */
@@ -241,12 +247,12 @@ export function selectAllComponents(selector) {
       return []
     }
     results = [...components]
+  } else {
+    // 支付宝内部查询所有节点
+    $page.$getComponentBy((result) => {
+      results.push(result)
+    })
   }
-
-  // 支付宝内部查询所有节点
-  $page.$getComponentBy((result) => {
-    results.push(result)
-  })
 
   // 备用方案
   if (results.length === 0) {
