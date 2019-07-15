@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.6.2...miniapp-adapter@1.7.0) (2019-07-15)
+
+
+### Features
+
+* 增加支付宝onInit支持 ([3f98302](https://github.com/landn172/jgb-transform/commit/3f98302))
+
+
+
+
+
 <a name="1.6.2"></a>
 ## [1.6.2](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.6.1...miniapp-adapter@1.6.2) (2019-06-05)
 
