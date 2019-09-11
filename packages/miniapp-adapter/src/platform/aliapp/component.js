@@ -59,7 +59,7 @@ export function AdapterComponent(opts) {
     const [prevProps] = args
 
     didUpdate && didUpdate.call(this, ...args)
-    callObserverWhenPropsChange(prevProps);
+    callObserverWhenPropsChange.apply(this, prevProps);
   }
 
   /**
@@ -67,6 +67,7 @@ export function AdapterComponent(opts) {
    */
   function callObserverWhenPropsChange(prevProps, allowDiffValue = true) {
     const props = this.props || {}
+    prevProps = prevProps || {};
     Object.keys(props).forEach(key => {
       const oldVal = prevProps[key]
       const newVal = props[key]
@@ -83,7 +84,7 @@ export function AdapterComponent(opts) {
   opts.deriveDataFromProps = function (...args) {
     const [prevProps] = args;
     deriveDataFromProps && deriveDataFromProps.call(this, ...args);
-    callObserverWhenPropsChange(prevProps, false);
+    callObserverWhenPropsChange.apply(this, prevProps, false);
   }
 
   /** 为自定义组件被卸载后的回调，每当组件示例从页面卸载的时候都会触发此回调。  */
