@@ -34,7 +34,7 @@ export function AdapterComponent(opts) {
     const fn = opts[key]
     const highLevelFn = lifetimes[key]
     if (typeof highLevelFn === 'function') {
-      opts[key] = function(...args) {
+      opts[key] = function (...args) {
         highLevelFn.apply(this, args);
         typeof fn === 'function' && fn.apply(this, args);
       }
@@ -42,8 +42,8 @@ export function AdapterComponent(opts) {
   })
 
   // lifetimes methods
-  let {created, attached, ready, moved, detached} = opts;
-  const {didUpdate, didUnmount, didMount,onInit} = opts;
+  let { created, attached, ready, moved, detached } = opts;
+  const { didUpdate, didUnmount, didMount, onInit, deriveDataFromProps } = opts;
 
   // remove lifetimes methods
   delete opts.lifetimes;
@@ -55,38 +55,52 @@ export function AdapterComponent(opts) {
   const observers = []
 
   /** 为自定义组件更新后的回调，每次组件数据变更的时候都会调用。  */
-  opts.didUpdate = function(...args) {
+  opts.didUpdate = function (...args) {
     const [prevProps] = args
+
+    didUpdate && didUpdate.call(this, ...args)
+    callObserverWhenPropsChange(prevProps);
+  }
+
+  /**
+   * 当props改变时，触发observer
+   */
+  function callObserverWhenPropsChange(prevProps, allowDiffValue = true) {
     const props = this.props || {}
     Object.keys(props).forEach(key => {
       const oldVal = prevProps[key]
       const newVal = props[key]
-      if (newVal !== oldVal) {
+      if (allowDiffValue && newVal !== oldVal) {
         const o = observers.find(o => o.key === key)
         if (o) {
           o.observer.call(this, newVal, oldVal, [key])
         }
       }
     })
+  }
 
-    didUpdate && didUpdate.call(this, ...args)
+  /** 组件生命周期函数，组件创建时和更新前触发 */
+  opts.deriveDataFromProps = function (...args) {
+    const [prevProps] = args;
+    deriveDataFromProps && deriveDataFromProps.call(this, ...args);
+    callObserverWhenPropsChange(prevProps, false);
   }
 
   /** 为自定义组件被卸载后的回调，每当组件示例从页面卸载的时候都会触发此回调。  */
-  opts.didUnmount = function(...args) {
+  opts.didUnmount = function (...args) {
     detached && detached.call(this);
     removeComponentToPage.call(this);
     didUnmount && didUnmount.call(this, ...args)
   }
 
   /** 1.14开始支持，类似create  */
-  opts.onInit = function() {
+  opts.onInit = function () {
     addComponentToPage.call(this);
-    onInit.call(this)
+    onInit && onInit.call(this)
   }
 
   /** 为自定义组件首次渲染完毕后的回调，此时页面已经渲染，通常在这时请求服务端数据比较合适。  */
-  opts.didMount = function(...args) {
+  opts.didMount = function (...args) {
     addComponentToPage.call(this)
 
     extendInstance.call(this)
@@ -106,7 +120,7 @@ export function AdapterComponent(opts) {
       if (typeof defaultValue === 'function') {
         defaultValue = new defaultValue()
       } else {
-        const {type, value, observer} = defaultValue
+        const { type, value, observer } = defaultValue
         defaultValue = value;
         if (observer) {
           observers.push({
@@ -128,7 +142,7 @@ export function AdapterComponent(opts) {
   // 收集triggerEvent 并在props中注册
   const fns = getOptionsTriggerEvent(opts);
   if (fns && fns.length) {
-    fns.forEach(({eventName}) => {
+    fns.forEach(({ eventName }) => {
       opts.props[eventName] = (data) => console.log(data)
     })
   }
@@ -199,7 +213,7 @@ function triggerEvent(eventName, data) {
     return
   }
   fn(data)
-// fn.call(this, data)
+  // fn.call(this, data)
 }
 
 
@@ -283,7 +297,7 @@ export function selectComponent(selector) {
 }
 
 function cannotAchieveComponentInstanceFunctions(ctx) {
-  const functionNames = ['hasBehavior', 'createIntersectionObserver' /* , 'selectComponent', 'selectAllComponents' */ , 'getRelationNodes', 'groupSetData']
+  const functionNames = ['hasBehavior', 'createIntersectionObserver' /* , 'selectComponent', 'selectAllComponents' */, 'getRelationNodes', 'groupSetData']
 
   functionNames.forEach(name => {
     const method = createNotAchievedMethod(name)
