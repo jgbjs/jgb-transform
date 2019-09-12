@@ -1,4 +1,4 @@
-import { pathResolve } from '../../src/utils/pathReolve'
+import { pathResolve } from '../../src/utils/pathResolve'
 
 it(`pathResolve('/1/2' , './test')`, () => {
   const result = pathResolve('/1/2', './test')

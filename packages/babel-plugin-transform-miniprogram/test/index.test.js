@@ -94,16 +94,16 @@ PluginTester({
       output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
       (ctx || swan).createSelectorQuery();`
     },
-    [`swan: will not tranform Page,Component,Behavior,App`]: {
-      code: `Component({});
-      App({});
-      Page({});
-      Behavior({});`,
-      output: `Component({});
-      App({});
-      Page({});
-      Behavior({});`
-    }
+    // [`swan: will not tranform Page,Component,Behavior,App`]: {
+    //   code: `Component({});
+    //   App({});
+    //   Page({});
+    //   Behavior({});`,
+    //   output: `Component({});
+    //   App({});
+    //   Page({});
+    //   Behavior({});`
+    // }
   },
 })
 
