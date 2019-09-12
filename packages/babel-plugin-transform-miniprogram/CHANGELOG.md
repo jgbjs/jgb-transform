@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.7.4...babel-plugin-transform-miniprogram@0.8.0) (2019-09-12)
+
+
+### Features
+
+* 对支付宝和百度支付relations支持 ([8341679](https://github.com/landn172/jgb-transform/commit/8341679))
+
+
+
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.7.3...babel-plugin-transform-miniprogram@0.7.4) (2019-09-11)
 
