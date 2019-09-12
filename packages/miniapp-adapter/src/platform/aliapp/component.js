@@ -1,6 +1,11 @@
 // @jgb-ignore
 import { defineProperty } from '../../utils/index';
 import { createSelectorQuery } from './wxml/createSelectorQuery';
+import { createIntersectionObserver } from './wxml/createIntersectionObserver'
+import { PAGE_COMPONENTS, COMPONENT_RELTATIONS, excuteRelations, selectAllComponents, selectComponent } from './base'
+import { addComponentToPage, removeComponentToPage } from '../../emulation/pageComponents'
+import { emulateExcuteRelations, collectRelations } from '../../emulation/relations'
+
 /**
  * 适配微信小程序Component参数的组件方法
  * @param {*} opts 
@@ -87,27 +92,34 @@ export function AdapterComponent(opts) {
     callObserverWhenPropsChange.apply(this, prevProps, false);
   }
 
+  // collect relations
+  const relations = opts.relations || {}
+
   /** 为自定义组件被卸载后的回调，每当组件示例从页面卸载的时候都会触发此回调。  */
-  opts.didUnmount = function (...args) {
+  opts.didUnmount = function (...args) {    
     detached && detached.call(this);
-    removeComponentToPage.call(this);
-    didUnmount && didUnmount.call(this, ...args)
+    
+    emulateExcuteRelations(this, 'detached');    
+    removeComponentToPage(this);
+
+    didUnmount && didUnmount.call(this, ...args);
   }
 
   /** 1.14开始支持，类似create  */
   opts.onInit = function () {
-    addComponentToPage.call(this);
-    onInit && onInit.call(this)
+    addComponentToPage(this);
+    extendInstance(this);
+    collectRelations(this, relations);
+
+    onInit && onInit.call(this);
+    created && created.call(this);
   }
 
   /** 为自定义组件首次渲染完毕后的回调，此时页面已经渲染，通常在这时请求服务端数据比较合适。  */
-  opts.didMount = function (...args) {
-    addComponentToPage.call(this)
-
-    extendInstance.call(this)
-
-    created && created.call(this)
+  opts.didMount = function (...args) {     
     attached && attached.call(this)
+    // 在该节点attached生命周期之后
+    emulateExcuteRelations(this, 'attached');
     ready && ready.call(this)
 
     didMount && didMount.call(this, ...args)
@@ -154,55 +166,38 @@ export function AdapterComponent(opts) {
 const MATCH_BIND_FUNC = /bind([a-zA-Z0-9]+)/
 const MATCH_TRIGGEREVENT_PARAMS = /this\.triggerEvent\((.+)\)/g
 
-const PAGE_COMPONENTS = '$components$'
-
-function addComponentToPage() {
-  if (!this.$page) return
-  if (!this.$page[PAGE_COMPONENTS]) {
-    this.$page[PAGE_COMPONENTS] = new Set();
-  }
-
-  const components = this.$page[PAGE_COMPONENTS]
-  if (components.has(this)) return;
-  components.add(this);
-}
-
-function removeComponentToPage() {
-  if (!this.$page || !this.$page[PAGE_COMPONENTS]) return
-  const components = this.$page[PAGE_COMPONENTS]
-  components.delete(this)
-}
-
 /**
  * 扩展实例属性
  * @param {*} ctx 
  */
 function extendInstance(ctx) {
   // 适配微信小程序属性
-  if (!this.properties) {
-    Object.defineProperty(this, 'properties', {
+  if (!ctx.properties) {
+    Object.defineProperty(ctx, 'properties', {
       get() {
-        return this.props
+        return ctx.props
       }
     })
 
-    defineProperty(this, 'createSelectorQuery', () => createSelectorQuery({
-      context: this
+    defineProperty(ctx, 'createSelectorQuery', () => createSelectorQuery({
+      context: ctx
     }))
 
-    defineProperty(this, 'triggerEvent', triggerEvent)
+    defineProperty(ctx, 'createIntersectionObserver', (options) => createIntersectionObserver(ctx, options))
 
-    Object.defineProperty(this, 'id', {
+    defineProperty(ctx, 'triggerEvent', triggerEvent)
+
+    Object.defineProperty(ctx, 'id', {
       get() {
         return this.props.id || this.$id
       }
     })
 
-    defineProperty(this, 'selectAllComponents', selectAllComponents)
+    defineProperty(ctx, 'selectAllComponents', selectAllComponents)
 
-    defineProperty(this, 'selectComponent', selectComponent)
+    defineProperty(ctx, 'selectComponent', selectComponent)
 
-    cannotAchieveComponentInstanceFunctions(this);
+    cannotAchieveComponentInstanceFunctions(ctx);
   }
 }
 
@@ -216,8 +211,6 @@ function triggerEvent(eventName, data) {
   fn(data)
   // fn.call(this, data)
 }
-
-
 
 /**
  * 获取opts中所有的方法并遍历取出 this.triggerEvent('eventName') 中 eventName
@@ -248,57 +241,8 @@ function getOptionsTriggerEvent(opts = {}) {
   return fns
 }
 
-/**
- * 
- * @param {*} selector #id or .selector
- */
-export function selectAllComponents(selector) {
-  // this.$page 为 Component中对当前页面的实例
-  const $page = this.$page || this
-  let results = []
-  const components = $page[PAGE_COMPONENTS]
-  if (!$page.$getComponentBy) {
-    if (!components) {
-      return []
-    }
-    results = [...components]
-  } else {
-    // 支付宝内部查询所有节点
-    $page.$getComponentBy((result) => {
-      results.push(result)
-    })
-  }
-
-  // 备用方案
-  if (results.length === 0) {
-    results = [...components]
-  }
-
-  // 等待
-  return results.filter(r => {
-    const id = r.props.id;
-    const classNames = (r.props.className || '').split(' ').filter(s => !!s);
-    if (selector.startsWith('#') && `#${id}` === selector) {
-      return true
-    }
-
-    if (selector.startsWith('.') && classNames.length) {
-      if (classNames.filter(className => `.${className}` === selector).length) {
-        return true
-      }
-    }
-
-    return false
-  })
-}
-
-export function selectComponent(selector) {
-  const components = selectAllComponents.call(this, selector);
-  return components.length ? components[0] : undefined;
-}
-
 function cannotAchieveComponentInstanceFunctions(ctx) {
-  const functionNames = ['hasBehavior', 'createIntersectionObserver' /* , 'selectComponent', 'selectAllComponents' */, 'getRelationNodes', 'groupSetData']
+  const functionNames = ['hasBehavior', 'getRelationNodes', 'groupSetData']
 
   functionNames.forEach(name => {
     const method = createNotAchievedMethod(name)

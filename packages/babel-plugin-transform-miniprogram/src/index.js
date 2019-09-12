@@ -40,7 +40,20 @@ const aliasAdapterTarget = Object.keys(mappingAdapterLib).reduce((obj, key) => {
   return obj
 }, {})
 
-export default function ({types:t}) {
+const cacheResult = new Map();
+/** 判断是否需要重写原生组件 */
+const shouldAdapterPlatform = (target) => {
+  if (cacheResult.has(target)) {
+    return cacheResult.get(target)
+  }
+  
+  const result = aliasAdapterTarget['my'].indexOf(target) >= 0
+    || aliasAdapterTarget['swan'].indexOf(target) >= 0;
+  cacheResult.set(target, result)
+  return result
+}
+
+export default function ({ types: t }) {
   return {
     visitor: {
       Program: {
@@ -83,7 +96,7 @@ export default function ({types:t}) {
           }
 
           // when wx2aliapp
-          if (aliasAdapterTarget["my"].indexOf(TARGET) >= 0) {
+          if (shouldAdapterPlatform(TARGET)) {
             if (this[ImportSpecifiersKey]) {
               const importSpecifiers = new Set(this[ImportSpecifiersKey])
               for (const sp of importSpecifiers) {
@@ -109,7 +122,7 @@ export default function ({types:t}) {
        */
       VariableDeclarator(path) {
         // when wx2aliapp replace
-        if (aliasAdapterTarget["my"].indexOf(TARGET) < 0) {
+        if (!shouldAdapterPlatform(TARGET)) {
           return
         }
         const init = path.get('init')
@@ -135,7 +148,7 @@ export default function ({types:t}) {
 
       AssignmentExpression(path) {
         // when wx2aliapp replace
-        if (aliasAdapterTarget["my"].indexOf(TARGET) < 0) {
+        if (!shouldAdapterPlatform(TARGET)) {
           return
         }
 
@@ -156,7 +169,7 @@ export default function ({types:t}) {
         }
       },
 
-      Identifier(path,) {
+      Identifier(path, ) {
         if (!this.needTransform) return
         const hasScope = !!path.scope.bindings[SOURCE]
         // 局部重新定义该变量则忽略替换
@@ -168,7 +181,7 @@ export default function ({types:t}) {
       },
       CallExpression(path) {
         // when wx2aliapp replace
-        if (aliasAdapterTarget["my"].indexOf(TARGET) < 0) {
+        if (!shouldAdapterPlatform(TARGET)) {
           return
         }
 

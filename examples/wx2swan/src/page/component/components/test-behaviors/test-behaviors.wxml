@@ -1,0 +1,8 @@
+测试behaviors
+
+<view class="test-behavior" bind:tap="tap">
+  <view> data.data: {{data}}</view>
+  <view>behavior: data.bdata: {{bdata}}</view>
+</view>
+
+<button bind:tap="getComponent">getComponents</button>

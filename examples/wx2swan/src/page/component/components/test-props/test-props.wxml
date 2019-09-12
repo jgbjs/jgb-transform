@@ -1,0 +1,5 @@
+测试props响应
+<view class="test-props">
+  {{myProperty}} - {{myProperty2}}
+</view>
+<button bindtap="trigger">triggerEvent</button>

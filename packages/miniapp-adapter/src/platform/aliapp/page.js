@@ -1,6 +1,6 @@
 // @jgb-ignore
 
-import { selectAllComponents, selectComponent } from './component'
+import { selectAllComponents, selectComponent } from './base'
 import { defineProperty } from '../../utils/index'
 
 export default function AdapterAliappPage(opts, ...otherOpts) {

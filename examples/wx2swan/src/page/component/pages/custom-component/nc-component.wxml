@@ -1,0 +1,2 @@
+<view>nc-component {{count}}</view>
+<button onTap="bindClick">click</button>
