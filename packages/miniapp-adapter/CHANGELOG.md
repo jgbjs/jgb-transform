@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.7.0...miniapp-adapter@1.7.1) (2019-09-11)
+
+
+### Bug Fixes
+
+* 修復支付宝observer props时有时触发异常，增加补偿deriveDataFromProps ([0048174](https://github.com/landn172/jgb-transform/commit/0048174))
+
+
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.6.2...miniapp-adapter@1.7.0) (2019-07-15)
 
