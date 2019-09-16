@@ -2,7 +2,7 @@
 import { defineProperty } from '../../utils/index';
 import { createSelectorQuery } from './wxml/createSelectorQuery';
 import { createIntersectionObserver } from './wxml/createIntersectionObserver'
-import { PAGE_COMPONENTS, COMPONENT_RELTATIONS, excuteRelations, selectAllComponents, selectComponent } from './base'
+import { selectAllComponents, selectComponent } from './base'
 import { addComponentToPage, removeComponentToPage } from '../../emulation/pageComponents'
 import { emulateExcuteRelations, collectRelations } from '../../emulation/relations'
 
@@ -64,7 +64,7 @@ export function AdapterComponent(opts) {
     const [prevProps] = args
 
     didUpdate && didUpdate.call(this, ...args)
-    callObserverWhenPropsChange.apply(this, prevProps);
+    callObserverWhenPropsChange.call(this, prevProps);
   }
 
   /**
@@ -76,7 +76,7 @@ export function AdapterComponent(opts) {
     Object.keys(props).forEach(key => {
       const oldVal = prevProps[key]
       const newVal = props[key]
-      if (allowDiffValue && newVal !== oldVal) {
+      if (!allowDiffValue || newVal !== oldVal) {
         const o = observers.find(o => o.key === key)
         if (o) {
           o.observer.call(this, newVal, oldVal, [key])
@@ -89,17 +89,17 @@ export function AdapterComponent(opts) {
   opts.deriveDataFromProps = function (...args) {
     const [prevProps] = args;
     deriveDataFromProps && deriveDataFromProps.call(this, ...args);
-    callObserverWhenPropsChange.apply(this, prevProps, false);
+    callObserverWhenPropsChange.call(this, prevProps, false);
   }
 
   // collect relations
   const relations = opts.relations || {}
 
   /** 为自定义组件被卸载后的回调，每当组件示例从页面卸载的时候都会触发此回调。  */
-  opts.didUnmount = function (...args) {    
+  opts.didUnmount = function (...args) {
     detached && detached.call(this);
-    
-    emulateExcuteRelations(this, 'detached');    
+
+    emulateExcuteRelations(this, 'detached');
     removeComponentToPage(this);
 
     didUnmount && didUnmount.call(this, ...args);
@@ -116,7 +116,7 @@ export function AdapterComponent(opts) {
   }
 
   /** 为自定义组件首次渲染完毕后的回调，此时页面已经渲染，通常在这时请求服务端数据比较合适。  */
-  opts.didMount = function (...args) {     
+  opts.didMount = function (...args) {
     attached && attached.call(this)
     // 在该节点attached生命周期之后
     emulateExcuteRelations(this, 'attached');
@@ -201,14 +201,20 @@ function extendInstance(ctx) {
   }
 }
 
-function triggerEvent(eventName, data) {
+function triggerEvent(eventName, data, eventOptions) {
   const name = processEventName(eventName)
   const fn = this.props[name]
   if (typeof fn !== 'function') {
     console.warn(`triggerEvent [${eventName}] is not a function`)
     return
   }
-  fn(data)
+  // 模拟微信triggerEvent
+  fn({
+    detail: data,
+    type: eventName,
+    currentTarget: {},
+    target: {}
+  })
   // fn.call(this, data)
 }
 
@@ -268,18 +274,12 @@ function eachOptions(opts, callback) {
 }
 
 /**
- * > 微信自定义组件事件 bindmyevent or bind:myevent 
  * > 触发事件 this.triggerEvent('myevent')
  * > 支付宝：外部使用自定义组件时，如果传递的参数是函数，一定要要以 on 为前缀，否则会将其处理为字符串。
  * @param {*} eventName 
  */
-function processEventName(eventName) {
-  // bindtap => onTap
+function processEventName(eventName = '') {
   // tap => onTap
-  if (eventName.startsWith('bind') || !eventName.startsWith('on')) {
-    return eventName.replace(/^(bind){0,1}(.*)/, (g, $1, $2) => {
-      return `on${$2[0].toUpperCase()}${$2.slice(1)}`
-    })
-  }
-  return eventName
+  eventName = `${eventName}`
+  return `on${eventName[0].toUpperCase()}${eventName.slice(1)}`
 }
