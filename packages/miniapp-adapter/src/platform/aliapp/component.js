@@ -86,11 +86,11 @@ export function AdapterComponent(opts) {
   }
 
   /** 组件生命周期函数，组件创建时和更新前触发 */
-  opts.deriveDataFromProps = function (...args) {
-    const [prevProps] = args;
-    deriveDataFromProps && deriveDataFromProps.call(this, ...args);
-    callObserverWhenPropsChange.call(this, prevProps, false);
-  }
+  // opts.deriveDataFromProps = function (...args) {
+  //   const [prevProps] = args;
+  //   deriveDataFromProps && deriveDataFromProps.call(this, ...args);
+  //   callObserverWhenPropsChange.call(this, prevProps, false);
+  // }
 
   // collect relations
   const relations = opts.relations || {}
@@ -117,6 +117,12 @@ export function AdapterComponent(opts) {
 
   /** 为自定义组件首次渲染完毕后的回调，此时页面已经渲染，通常在这时请求服务端数据比较合适。  */
   opts.didMount = function (...args) {
+    Object.defineProperty(this, 'properties', {
+      get() {
+        return this.props
+      }
+    })
+    callObserverWhenPropsChange.call(this, this.props, false);
     attached && attached.call(this)
     // 在该节点attached生命周期之后
     emulateExcuteRelations(this, 'attached');
