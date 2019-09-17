@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.7.1...miniapp-adapter@1.9.0) (2019-09-17)
+
+
+### Bug Fixes
+
+* **aliapp:** callObserverWhenPropsChange context && add prevProps default value ([4194952](https://github.com/landn172/jgb-transform/commit/4194952))
+* 修复支付宝triggerEvent时一些错误 ([25d9cd8](https://github.com/landn172/jgb-transform/commit/25d9cd8))
+
+
+### Features
+
+* 对支付宝和百度支付relations支持 ([8341679](https://github.com/landn172/jgb-transform/commit/8341679))
+
+
+### Performance Improvements
+
+* 优化props触发observer逻辑 ([2790c0e](https://github.com/landn172/jgb-transform/commit/2790c0e))
+
+
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.7.1...miniapp-adapter@1.8.0) (2019-09-12)
 
