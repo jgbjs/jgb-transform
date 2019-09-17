@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.0...miniapp-adapter@1.9.1) (2019-09-17)
+
+
+### Bug Fixes
+
+* 修复Object.define重复properties ([4216e64](https://github.com/landn172/jgb-transform/commit/4216e64))
+
+
+
+
+
 <a name="1.9.0"></a>
 # [1.9.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.7.1...miniapp-adapter@1.9.0) (2019-09-17)
 
