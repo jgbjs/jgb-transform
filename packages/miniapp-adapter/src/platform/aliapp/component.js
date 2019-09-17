@@ -117,11 +117,6 @@ export function AdapterComponent(opts) {
 
   /** 为自定义组件首次渲染完毕后的回调，此时页面已经渲染，通常在这时请求服务端数据比较合适。  */
   opts.didMount = function (...args) {
-    Object.defineProperty(this, 'properties', {
-      get() {
-        return this.props
-      }
-    })
     callObserverWhenPropsChange.call(this, this.props, false);
     attached && attached.call(this)
     // 在该节点attached生命周期之后
