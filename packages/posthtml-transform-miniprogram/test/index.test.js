@@ -7,7 +7,7 @@ const transform = require('../src/index');
 
 expect.extend({
   async toBeSwan(received, expected) {
-    let html = await processHtml(received)
+    let html = await processHtml(received, 'swan')
     html = format(html);
     expected = format(expected)
     const pass = html === expected
@@ -87,6 +87,36 @@ describe('wx => aliapp', () => {
     await expect(`<view bindtap="bindTap" catchtap="catchTap"></view>`)
       .toBeAliapp(`<view onTap="bindTap" catchTap="catchTap"></view>`)
   })
+
+  test(`<wxs> to <import-sjs> inline script`, async () => {
+    await expect(`<wxs module="tools">
+    var foo = "'hello world' from tools.wxs";
+    var bar = function (d) {
+      return d;
+    }
+    module.exports = {
+      FOO: foo,
+      bar: bar,
+    };
+    module.exports.msg = "some msg";
+    </wxs>`)
+      .toBeAliapp(`<import-sjs name="tools">
+      var foo = "'hello world' from tools.wxs";
+      var bar = function (d) {
+        return d;
+      }
+      module.exports = {
+        FOO: foo,
+        bar: bar,
+      };
+      module.exports.msg = "some msg";
+      </import-sjs>`);
+  });
+
+  test(`<wxs> to <import-sjs> src`, async () => {
+    await expect(`<wxs src="./../tools.wxs" module="tools" />`)
+      .toBeAliapp(`<import-sjs name="tools" from="./../tools.wxs"></import-sjs>`)
+  })
 })
 
 describe('wx => swan', () => {
@@ -121,7 +151,7 @@ describe('wx => swan', () => {
       .toBeSwan(`<scroll-view scroll-top="{= scrollTop =}"></scroll-view>`)
   })
 
-  test(`auto add block when wx:if and wx:for in same tag`, async() => {
+  test(`auto add block when wx:if and wx:for in same tag`, async () => {
     await expect(`
     <view wx:for="{{items}}" wx:if="{{items}}">
       <view>data</view>
@@ -132,7 +162,11 @@ describe('wx => swan', () => {
         <view>data</view>
       </view>
     </block>`))
+  })
 
+  test(`wxs to filter`, async () => {
+    await expect(`<wxs src="./../tools.wxs" module="tools" />`)
+      .toBeSwan(`<filter src="./../tools.wxs" module="tools"></filter>`)
   })
 })
 
