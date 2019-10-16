@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.9.2"></a>
+## [1.9.2](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.1...miniapp-adapter@1.9.2) (2019-10-16)
+
+
+### Bug Fixes
+
+* **adapter:** 修复my引用错误 ([e400533](https://github.com/landn172/jgb-transform/commit/e400533))
+
+
+
+
+
 <a name="1.9.1"></a>
 ## [1.9.1](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.0...miniapp-adapter@1.9.1) (2019-09-17)
 
