@@ -1,6 +1,6 @@
 export function showLoading(opts) {
   const {title} = opts;
-  moveBy.showLoading({
+  my.showLoading({
     ...opts,
     content: title
   })

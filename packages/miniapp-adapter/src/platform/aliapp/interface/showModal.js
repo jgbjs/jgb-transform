@@ -1,6 +1,6 @@
 export function showModal(opts) {
   const {success} = opts;
-  moveBy.confirm({
+  my.confirm({
     ...opts,
     confirmButtonText: opts.confirmButtonText,
     cancelButtonText: opts.cancelText,
