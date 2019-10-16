@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.9.3"></a>
+## [1.9.3](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.2...miniapp-adapter@1.9.3) (2019-10-16)
+
+
+### Bug Fixes
+
+* **adpater:** fix showModal props error mapping ([2c34e87](https://github.com/landn172/jgb-transform/commit/2c34e87))
+
+
+
+
+
 <a name="1.9.2"></a>
 ## [1.9.2](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.1...miniapp-adapter@1.9.2) (2019-10-16)
 
