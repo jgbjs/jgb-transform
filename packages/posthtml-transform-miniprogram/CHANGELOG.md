@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.5.1...posthtml-transform-miniprogram@0.6.0) (2019-10-16)
+
+
+### Features
+
+* 支持对wxs转义到支付宝及百度平台 ([07ec353](https://github.com/landn172/jgb-transform/commit/07ec353))
+
+
+
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.5.0...posthtml-transform-miniprogram@0.5.1) (2019-05-22)
 
