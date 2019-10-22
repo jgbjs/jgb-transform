@@ -1,11 +1,16 @@
 export const request = opts => {
-  const {header, success} = opts
+  const { success } = opts
   const innerRequest = my.request || my.httpRequest;
+  // 默认的请求的ContentType为 json
+  const headers = Object.assign({
+    'Content-Type': 'application/json'
+  }, opts.header || opts.headers || {});
+
   return innerRequest({
     ...opts,
-    headers: header || opts.headers,
+    headers,
     success(res) {
-      const {data, status, headers} = res;
+      const { data, status, headers } = res;
       success && success({
         data,
         statusCode: status,
@@ -14,3 +19,5 @@ export const request = opts => {
     }
   })
 }
+
+export const httpRequest = request;

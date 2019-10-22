@@ -27,6 +27,17 @@ export function Extend(obj, newObj) {
   return Object.assign(obj, newObj);
 }
 
+export function ExtendExistValue(obj, newObj) {
+  const keys = Object.keys(newObj)
+  keys.forEach(key => {
+    const value = newObj[key]
+    if(typeof value !== undefined) {
+      obj[key] = value;
+    }
+  })
+  return obj
+}
+
 export function defineProperty(ctx, name, value) {
   Object.defineProperty(ctx, name, {
     get() {
