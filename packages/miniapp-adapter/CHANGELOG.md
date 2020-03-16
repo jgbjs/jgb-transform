@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.9.5"></a>
+## [1.9.5](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.3...miniapp-adapter@1.9.5) (2020-03-16)
+
+
+### Bug Fixes
+
+* 修复ali adapter一些异常 ([f35f10f](https://github.com/landn172/jgb-transform/commit/f35f10f))
+
+
+
+
+
 <a name="1.9.4"></a>
 ## [1.9.4](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.3...miniapp-adapter@1.9.4) (2020-03-16)
 
