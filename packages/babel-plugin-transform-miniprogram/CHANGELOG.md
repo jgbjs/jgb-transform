@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.9.3...babel-plugin-transform-miniprogram@0.10.0) (2020-03-16)
+
+
+### Features
+
+* 调整babel转换逻辑，更好的兼容原始代码 ([3b5b9fe](https://github.com/landn172/jgb-transform/commit/3b5b9fe))
+
+
+
+
+
 <a name="0.9.3"></a>
 ## [0.9.3](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.9.2...babel-plugin-transform-miniprogram@0.9.3) (2019-10-16)
 
