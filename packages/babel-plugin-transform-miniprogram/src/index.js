@@ -46,7 +46,7 @@ const shouldAdapterPlatform = (target) => {
   if (cacheResult.has(target)) {
     return cacheResult.get(target)
   }
-  
+
   const result = aliasAdapterTarget['my'].indexOf(target) >= 0
     || aliasAdapterTarget['swan'].indexOf(target) >= 0;
   cacheResult.set(target, result)
@@ -92,7 +92,7 @@ export default function ({ types: t }) {
           const importDeclarations = []
           // import wx from 'xxx/xxx'
           if (this[ImportDefaultSpecifierKey]) {
-            importDeclarations.push(t.importDefaultSpecifier(t.identifier(TARGET)))
+            importDeclarations.push(t.importDefaultSpecifier(t.identifier(SOURCE)))
           }
 
           // when wx2aliapp
@@ -176,7 +176,7 @@ export default function ({ types: t }) {
         if (hasScope) return
         if (path.node.name === SOURCE) {
           this[ImportDefaultSpecifierKey] = true;
-          path.replaceWith(t.identifier(TARGET))
+          // path.replaceWith(t.identifier(TARGET))
         }
       },
       CallExpression(path) {

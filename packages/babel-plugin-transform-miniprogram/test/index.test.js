@@ -51,48 +51,48 @@ PluginTester({
     },
     "wx.request({})": {
       code: "wx.request({});",
-      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";      
-      swan.request({});`)
+      output: (`import wx from "miniapp-adapter/lib/platform/baidu/index.js";      
+      wx.request({});`)
     },
     [`wx["request"]({})`]: {
       code: `wx["request"]({});`,
-      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      swan["request"]({});`),
+      output: (`import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      wx["request"]({});`),
     },
     "var request = wx.request": {
       code: `var request = wx.request;`,
-      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      var request = swan.request;`)
+      output: (`import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      var request = wx.request;`)
     },
     "var temp = wx": {
       code: `var temp = wx;`,
-      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      var temp = swan;`)
+      output: (`import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      var temp = wx;`)
     },
     "var systemInfo = wx.getSystemInfoSync();": {
       code: `var systemInfo = wx.getSystemInfoSync();`,
-      output: (`import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      var systemInfo = swan.getSystemInfoSync();`)
+      output: (`import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      var systemInfo = wx.getSystemInfoSync();`)
     },
     [`export default wx`]: {
       code: `export default wx`,
-      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      export default swan;`
+      output: `import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      export default wx;`
     },
     [`module.exports = wx;`]: {
       code: `module.exports = wx;`,
-      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      module.exports = swan;`
+      output: `import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      module.exports = wx;`
     },
     [`function get(ctx = wx) {}`]: {
       code: `function get(ctx = wx) {}`,
-      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      function get(ctx = swan) {}`
+      output: `import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      function get(ctx = wx) {}`
     },
     [`(ctx || wx).createSelectorQuery()`]: {
       code: `(ctx || wx).createSelectorQuery();`,
-      output: `import swan from "miniapp-adapter/lib/platform/baidu/index.js";
-      (ctx || swan).createSelectorQuery();`
+      output: `import wx from "miniapp-adapter/lib/platform/baidu/index.js";
+      (ctx || wx).createSelectorQuery();`
     },
     // [`swan: will not tranform Page,Component,Behavior,App`]: {
     //   code: `Component({});
@@ -115,6 +115,15 @@ PluginTester({
     target: 'my',
   },
   tests: {
+    "contains my and wx":{
+      code: `
+      wx.showToast({});
+      my.Page({});`,
+      output: `
+      import wx from "miniapp-adapter/lib/platform/aliapp/index.js";
+      wx.showToast({});
+      my.Page({}); `
+    },
     "test ignore key: @jgb-ignore": {
       code: `// @jgb-ignore
       wx.request();
@@ -125,8 +134,8 @@ PluginTester({
     },
     "ali: var request = wx.request": {
       code: `var request = wx.request;`,
-      output: `import my from "miniapp-adapter/lib/platform/aliapp/index.js";
-      var request = my.request;`,
+      output: `import wx from "miniapp-adapter/lib/platform/aliapp/index.js";
+      var request = wx.request;`,
       pluginOptions: {
         target: 'my',
       },
@@ -153,16 +162,16 @@ PluginTester({
     "Page assignment": {
       code: `const oldPage = Page;
       wx.Page = Page;`,
-      output: `import my, { WrapPage } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      output: `import wx, { WrapPage } from "miniapp-adapter/lib/platform/aliapp/index.js";
       const oldPage = WrapPage(Page);
-      my.Page = WrapPage(Page);`
+      wx.Page = WrapPage(Page);`
     },
     "Component assignment": {
       code: `const oldComponent = Component;
       wx.Component = Component;`,
-      output: `import my, { WrapComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      output: `import wx, { WrapComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
       const oldComponent = WrapComponent(Component);
-      my.Component = WrapComponent(Component);`
+      wx.Component = WrapComponent(Component);`
     }
   }
 })
@@ -189,48 +198,48 @@ PluginTester({
     },
     "wx.request({})": {
       code: "wx.request({});",
-      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";      
-      tt.request({});`)
+      output: (`import wx from "miniapp-adapter/lib/platform/tt/index.js";      
+      wx.request({});`)
     },
     [`wx["request"]({})`]: {
       code: `wx["request"]({});`,
-      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      tt["request"]({});`),
+      output: (`import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      wx["request"]({});`),
     },
     "var request = wx.request": {
       code: `var request = wx.request;`,
-      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      var request = tt.request;`)
+      output: (`import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      var request = wx.request;`)
     },
     "var temp = wx": {
       code: `var temp = wx;`,
-      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      var temp = tt;`)
+      output: (`import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      var temp = wx;`)
     },
     "var systemInfo = wx.getSystemInfoSync();": {
       code: `var systemInfo = wx.getSystemInfoSync();`,
-      output: (`import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      var systemInfo = tt.getSystemInfoSync();`)
+      output: (`import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      var systemInfo = wx.getSystemInfoSync();`)
     },
     [`export default wx`]: {
       code: `export default wx`,
-      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      export default tt;`
+      output: `import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      export default wx;`
     },
     [`module.exports = wx;`]: {
       code: `module.exports = wx;`,
-      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      module.exports = tt;`
+      output: `import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      module.exports = wx;`
     },
     [`function get(ctx = wx) {}`]: {
       code: `function get(ctx = wx) {}`,
-      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      function get(ctx = tt) {}`
+      output: `import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      function get(ctx = wx) {}`
     },
     [`(ctx || wx).createSelectorQuery()`]: {
       code: `(ctx || wx).createSelectorQuery();`,
-      output: `import tt from "miniapp-adapter/lib/platform/tt/index.js";
-      (ctx || tt).createSelectorQuery();`
+      output: `import wx from "miniapp-adapter/lib/platform/tt/index.js";
+      (ctx || wx).createSelectorQuery();`
     },
     [`swan: will not tranform Page,Component,Behavior,App`]: {
       code: `Component({});
