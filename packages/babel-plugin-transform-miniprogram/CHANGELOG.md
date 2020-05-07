@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.11.1"></a>
+## [0.11.1](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.11.0...babel-plugin-transform-miniprogram@0.11.1) (2020-05-07)
+
+
+### Bug Fixes
+
+* 修复重复tranform注入adapter ([5524ed9](https://github.com/landn172/jgb-transform/commit/5524ed9))
+
+
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.9.3...babel-plugin-transform-miniprogram@0.11.0) (2020-03-16)
 
