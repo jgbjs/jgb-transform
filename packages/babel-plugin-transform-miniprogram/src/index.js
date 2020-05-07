@@ -1,3 +1,4 @@
+
 /**
  * 将 wx 转换成 swan
  * wx.xxx => swan.xxx
@@ -180,13 +181,30 @@ export default function ({ types: t }) {
         }
       },
       CallExpression(path) {
+        const callee = path.get("callee")
+        const name = callee.node.name
+
+        switch (name) {
+          case "require":
+            const args = path.get("arguments");
+            if (args && args.length === 1) {
+              const stringLiteral = args[0];
+              if (t.isStringLiteral(stringLiteral)) {
+                if (stringLiteral.node.value.includes(adapterLib)) {
+                  this.isImported = true;
+                }
+              }
+            }
+            break;
+
+          default:
+            break;
+        }
+
         // when wx2aliapp replace
         if (!shouldAdapterPlatform(TARGET)) {
           return
         }
-
-        const callee = path.get("callee")
-        const name = callee.node.name
 
         switch (name) {
           // Component({}) => AdapterComponent({},Component)
@@ -209,6 +227,13 @@ export default function ({ types: t }) {
 
           default:
             break;
+        }
+      },
+      ImportDeclaration(path) {
+        const source = path.get('source');
+        // already transform
+        if (source.node && source.node.value.includes(adapterLib)) {
+          this.isImported = true;
         }
       }
     }

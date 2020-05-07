@@ -115,7 +115,7 @@ PluginTester({
     target: 'my',
   },
   tests: {
-    "contains my and wx":{
+    "contains my and wx": {
       code: `
       wx.showToast({});
       my.Page({});`,
@@ -172,6 +172,36 @@ PluginTester({
       output: `import wx, { WrapComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
       const oldComponent = WrapComponent(Component);
       wx.Component = WrapComponent(Component);`
+    },
+    "already transfrom import demo": {
+      code: `
+      import wx, { WrapComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      wx.getInfo();
+      const oldComponent = WrapComponent(Component);
+      `,
+      output: `
+      import wx, { WrapComponent } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      wx.getInfo();
+      const oldComponent = WrapComponent(Component);
+      `
+    },
+    "already transfrom require demo": {
+      code: `
+      const index = require("miniapp-adapter/lib/platform/aliapp/index.js");
+
+      const wx = index;
+      const { WrapComponent } = index;      
+      wx.getInfo();
+      const oldComponent = WrapComponent(Component);
+      `,
+      output: `
+      const index = require("miniapp-adapter/lib/platform/aliapp/index.js");
+      
+      const wx = index;
+      const { WrapComponent } = index;
+      wx.getInfo();
+      const oldComponent = WrapComponent(Component);
+      `
     }
   }
 })
