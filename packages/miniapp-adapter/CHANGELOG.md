@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.5...miniapp-adapter@1.10.0) (2020-05-13)
+
+
+### Features
+
+* **adapter:** add aliapp adapter Storage ([26b4295](https://github.com/landn172/jgb-transform/commit/26b4295))
+
+
+
+
+
 <a name="1.9.5"></a>
 ## [1.9.5](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.3...miniapp-adapter@1.9.5) (2020-03-16)
 

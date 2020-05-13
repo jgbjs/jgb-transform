@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/landn172/jgb-transform/compare/wx2aliapp@1.5.7...wx2aliapp@1.6.0) (2020-05-13)
+
+
+### Features
+
+* **adapter:** add aliapp adapter Storage ([26b4295](https://github.com/landn172/jgb-transform/commit/26b4295))
+
+
+
+
+
 <a name="1.5.7"></a>
 ## [1.5.7](https://github.com/landn172/jgb-transform/compare/wx2aliapp@1.5.6...wx2aliapp@1.5.7) (2020-05-07)
 
