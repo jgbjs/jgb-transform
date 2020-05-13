@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "debug": "C:\\Users\\tuhuadmin\\scoop\\apps\\yarn\\current\\bin\\jgb build -t aliapp --no-cache"
+    "build": "jgb build -t my"
   },
   "devDependencies": {
     "@types/jest": "^23.3.11",
@@ -17,11 +17,11 @@
     "babel-plugin-transform-node-env-inline": "^0.2.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "jgb-plugin-babel": "^1.4.3-alpha.2",
-    "jgb-plugin-css": "^1.4.3-alpha.2",
-    "jgb-plugin-html": "^1.4.3-alpha.2",
-    "jgb-plugin-json": "^1.4.3-alpha.2",
-    "jgb-preset-aliapp": "^1.4.3-alpha.2",
+    "jgb-plugin-babel": "^1.9.1",
+    "jgb-plugin-css": "^1.9.1",
+    "jgb-plugin-html": "^1.9.1",
+    "jgb-plugin-json": "^1.9.1",
+    "jgb-preset-aliapp": "^1.9.1",
     "posthtml-transform-miniprogram": "^0.6.0"
   },
   "dependencies": {

@@ -10,12 +10,15 @@ import * as Media from './media'
 import * as File from './file'
 import * as Location from './location'
 import * as Device from './device'
+import * as Storage from './storage'
+
 console.log("invoke aliapp");
 const api = {};
 const _my = typeof my !== "undefined" && my;
 if (_my) {
   Extend(api, _my);
 }
+Extend(api, Storage);
 Extend(api, NetWork);
 Extend(api, Wxml);
 Extend(api, Interface);
