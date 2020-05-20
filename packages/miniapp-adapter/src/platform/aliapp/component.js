@@ -71,11 +71,17 @@ export function AdapterComponent(opts) {
    * 当props改变时，触发observer
    */
   function callObserverWhenPropsChange(prevProps, allowDiffValue = true) {
+    const noopReg = /\s+(noop)\s*\(/
     const props = this.props || {}
     prevProps = prevProps || {};
     Object.keys(props).forEach(key => {
       const oldVal = prevProps[key]
-      const newVal = props[key]
+      let newVal = props[key]
+      
+      // 支付宝会把传入props的null值转化为 function noop() {}导致问题，因此把这个再转为null
+      if (typeof newVal === 'function' && noopReg.test(newVal.toString())) {
+        newVal = null
+      }
       if (!allowDiffValue || newVal !== oldVal) {
         const o = observers.find(o => o.key === key)
         if (o) {
