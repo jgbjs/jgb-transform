@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.10.0...miniapp-adapter@1.11.0) (2020-05-20)
+
+
+### Features
+
+* 新增支付宝适配：1. showToast适配。2. 组件props传null会变成function noop() {}，将其重新转为null ([4d96e8f](https://github.com/landn172/jgb-transform/commit/4d96e8f))
+
+
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.9.5...miniapp-adapter@1.10.0) (2020-05-13)
 
