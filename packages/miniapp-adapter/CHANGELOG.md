@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.12.0"></a>
+# [1.12.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.11.0...miniapp-adapter@1.12.0) (2020-05-29)
+
+
+### Bug Fixes
+
+* 修复my.getLocation api入参type为默认值时经纬度转化 ([2d5ff66](https://github.com/landn172/jgb-transform/commit/2d5ff66))
+* 修复支付宝不传confirmText和cancelText时把undefined展示出来的问题 ([e090ed6](https://github.com/landn172/jgb-transform/commit/e090ed6))
+
+
+### Features
+
+* swan.getLocation api入参altitude类型差异 ([cfeffb4](https://github.com/landn172/jgb-transform/commit/cfeffb4))
+
+
+
+
+
 <a name="1.11.0"></a>
 # [1.11.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.10.0...miniapp-adapter@1.11.0) (2020-05-20)
 
