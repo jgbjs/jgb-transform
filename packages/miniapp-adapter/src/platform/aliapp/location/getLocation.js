@@ -19,7 +19,7 @@ export function getLocation(opts) {
       }
 
       let {longitude, latitude} = res;
-      [longitude, latitude] = coor.wgs84togcj02(longitude * 1, latitude * 1);
+      [longitude, latitude] = coor.gcj02towgs84(longitude * 1, latitude * 1);
       success(resultFormatToWeChat({
         ...res,
         longitude,

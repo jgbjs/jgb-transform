@@ -25,8 +25,8 @@ describe('getLocation', () => {
         expect(typeof longitude).toBe('number')
         expect(typeof latitude).toBe('number')
         console.log(longitude, latitude);
-        expect(longitude).toBeCloseTo(116.41024449916938, 10)
-        expect(latitude).toBeCloseTo(39.91640428150164, 10)
+        expect(longitude).toBeCloseTo(116.39775550083061, 10)
+        expect(latitude).toBeCloseTo(39.91359571849836, 10)
       }
     })
   })
