@@ -23,11 +23,13 @@ function defaultTransform(node) {
 
 /**
  * 转换成百度对应的tag
+ * @see https://smartprogram.baidu.com/docs/develop/framework/sjs_start/
+ * 百度不再维护 filter 转而 sjs
  */
 function transformToBaidu(node) {
-  // <wxs> => <filter>
+  // <wxs> => <import-sjs>
   if (node.tag === 'wxs') {
-    node.tag = 'filter'
+    node.tag = 'import-sjs'
   }
   return node
 }

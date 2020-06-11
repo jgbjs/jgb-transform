@@ -164,9 +164,9 @@ describe('wx => swan', () => {
     </block>`))
   })
 
-  test(`wxs to filter`, async () => {
+  test(`wxs to import-sjs`, async () => {
     await expect(`<wxs src="./../tools.wxs" module="tools" />`)
-      .toBeSwan(`<filter src="./../tools.wxs" module="tools"></filter>`)
+      .toBeSwan(`<import-sjs src="./../tools.wxs" module="tools"></import-sjs>`)
   })
 })
 
