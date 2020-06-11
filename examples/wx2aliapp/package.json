@@ -1,7 +1,7 @@
 {
   "name": "wx2aliapp",
   "private": true,
-  "version": "1.6.2",
+  "version": "1.6.3",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -22,7 +22,7 @@
     "jgb-plugin-html": "^1.9.1",
     "jgb-plugin-json": "^1.9.1",
     "jgb-preset-aliapp": "^1.9.1",
-    "posthtml-transform-miniprogram": "^0.6.0"
+    "posthtml-transform-miniprogram": "^0.7.0"
   },
   "dependencies": {
     "miniapp-adapter": "^1.12.0"

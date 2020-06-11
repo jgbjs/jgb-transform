@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.6.0...posthtml-transform-miniprogram@0.7.0) (2020-06-11)
+
+
+### Features
+
+* **posthtml:** 百度 filter.js => import-sjs ([9daa571](https://github.com/landn172/jgb-transform/commit/9daa571))
+
+
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.5.1...posthtml-transform-miniprogram@0.6.0) (2019-10-16)
 
