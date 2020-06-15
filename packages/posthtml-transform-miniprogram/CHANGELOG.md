@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.7.0...posthtml-transform-miniprogram@0.8.0) (2020-06-15)
+
+
+### Features
+
+* 🎸 enhance wx to swan ([031cf3f](https://github.com/landn172/jgb-transform/commit/031cf3f))
+
+
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.6.0...posthtml-transform-miniprogram@0.7.0) (2020-06-11)
 

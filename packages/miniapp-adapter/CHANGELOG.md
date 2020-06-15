@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.13.0"></a>
+# [1.13.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.12.0...miniapp-adapter@1.13.0) (2020-06-15)
+
+
+### Features
+
+* 🎸 enhance wx to swan ([031cf3f](https://github.com/landn172/jgb-transform/commit/031cf3f))
+
+
+
+
+
 <a name="1.12.0"></a>
 # [1.12.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.11.0...miniapp-adapter@1.12.0) (2020-05-29)
 
