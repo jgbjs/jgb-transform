@@ -168,6 +168,11 @@ describe('wx => swan', () => {
     await expect(`<wxs src="./../tools.wxs" module="tools" />`)
       .toBeSwan(`<import-sjs src="./../tools.wxs" module="tools"></import-sjs>`)
   })
+
+  test(`remove image webp`, async () => {
+    await expect(`<image src="xxx" webp="true"></image>`)
+      .toBeSwan(`<image src="xxx"></image>`)
+  })
 })
 
 describe('wx => tt', () => {

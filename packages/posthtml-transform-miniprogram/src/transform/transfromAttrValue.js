@@ -138,7 +138,7 @@ function transformSwan(node) {
   if (node.tag === 'template') {
     const data = attrs.data
     if (!data) return node;
-    node.attrs.data = data.replace(MATCH_BRACE, (g, $1) => {
+    attrs.data = data.replace(MATCH_BRACE, (g, $1) => {
       return `{{{${$1}}}}`
     })
   }
@@ -147,18 +147,25 @@ function transformSwan(node) {
     ['scroll-top', 'scroll-left', 'scroll-into-view'].forEach((attr) => {
       const contains = !!attrs[attr]
       if (!contains) return;
-      node.attrs[attr] = attrs[attr].replace(MATCH_BRACE, (g, $1) => {
+      attrs[attr] = attrs[attr].replace(MATCH_BRACE, (g, $1) => {
         return `{= ${$1} =}`
       })
     })
   }
+
+  if (node.tag === 'image') {
+    if (typeof attrs.webp !== 'undefined') {
+      delete attrs.webp;
+    }
+  }
+
   // https://smartapp.baidu.com/docs/develop/framework/view_for/
   // s-for与s-if不可在同一标签下同时使用。
   const keys = Object.keys(attrs)
   if (keys.includes('s-for') && keys.includes('s-if')) {
     console.warn(`s-for与s-if不可在同一标签下同时使用。正在转换添加block作为s-for作为循环标签`)
     const value = attrs['s-for']
-    delete node.attrs['s-for'];
+    delete attrs['s-for'];
     node.content = [ENTER_STR, cloneNode(node), ENTER_STR]
     node.tag = 'block'
     node.attrs = {
