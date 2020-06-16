@@ -153,11 +153,11 @@ describe('wx => swan', () => {
 
   test(`auto add block when wx:if and wx:for in same tag`, async () => {
     await expect(`
-    <view wx:for="{{items}}" wx:if="{{items}}">
+    <view wx:for="{{items}}" wx:for-index="idx" wx:for-item="item"  wx:if="{{items}}">
       <view>data</view>
     </view>`)
       .toBeSwan(format(`
-    <block s-for="{{items}}">
+    <block s-for="{{items}}" s-for-index="idx" s-for-item="item">
       <view s-if="{{items}}">
         <view>data</view>
       </view>

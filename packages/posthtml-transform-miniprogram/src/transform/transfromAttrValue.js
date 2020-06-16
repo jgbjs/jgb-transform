@@ -163,14 +163,13 @@ function transformSwan(node) {
   // s-for与s-if不可在同一标签下同时使用。
   const keys = Object.keys(attrs)
   if (keys.includes('s-for') && keys.includes('s-if')) {
-    console.warn(`s-for与s-if不可在同一标签下同时使用。正在转换添加block作为s-for作为循环标签`)
-    const value = attrs['s-for']
-    delete attrs['s-for'];
+    console.warn(`s-for与s-if不可在同一标签下同时使用。正在转换添加block作为s-for作为循环标签`);
+    const popAttrKey = ['s-for', 's-for-index', 's-for-item', 's-key'];
+    const popAttrs = _.pick(attrs, popAttrKey);
+    node.attrs = _.omit(attrs, popAttrKey);
     node.content = [ENTER_STR, cloneNode(node), ENTER_STR]
     node.tag = 'block'
-    node.attrs = {
-      's-for': value
-    }
+    node.attrs = popAttrs;
   }
 
   return node
