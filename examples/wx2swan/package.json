@@ -1,7 +1,7 @@
 {
   "name": "wx2swan",
   "private": true,
-  "version": "1.6.4",
+  "version": "1.6.5-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -9,15 +9,15 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.11",
-    "babel-plugin-transform-miniprogram": "^0.11.5",
+    "babel-plugin-transform-miniprogram": "0.11.6-alpha.0",
     "jgb-plugin-babel": "^1.9.1",
     "jgb-plugin-css": "^1.9.1",
     "jgb-plugin-html": "^1.9.1",
     "jgb-plugin-json": "^1.9.1",
     "jgb-preset-weapp": "^1.9.1",
-    "posthtml-transform-miniprogram": "^0.8.0"
+    "posthtml-transform-miniprogram": "0.8.1-alpha.0"
   },
   "dependencies": {
-    "miniapp-adapter": "^1.13.0"
+    "miniapp-adapter": "1.13.1-alpha.0"
   }
 }

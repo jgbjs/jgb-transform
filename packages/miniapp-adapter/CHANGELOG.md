@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.13.1-alpha.0"></a>
+## [1.13.1-alpha.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.13.0...miniapp-adapter@1.13.1-alpha.0) (2020-06-16)
+
+**Note:** Version bump only for package miniapp-adapter
+
+
+
+
+
 <a name="1.13.0"></a>
 # [1.13.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.12.0...miniapp-adapter@1.13.0) (2020-06-15)
 
