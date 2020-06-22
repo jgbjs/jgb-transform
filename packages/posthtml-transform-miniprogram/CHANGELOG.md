@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.8.2-alpha.0"></a>
+## [0.8.2-alpha.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.8.1-alpha.0...posthtml-transform-miniprogram@0.8.2-alpha.0) (2020-06-22)
+
+
+### Bug Fixes
+
+* 🐛 scroll-into-view 移除转换成双向绑定 ([1c36860](https://github.com/landn172/jgb-transform/commit/1c36860))
+
+
+
+
+
 <a name="0.8.1-alpha.0"></a>
 ## [0.8.1-alpha.0](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.8.0...posthtml-transform-miniprogram@0.8.1-alpha.0) (2020-06-16)
 

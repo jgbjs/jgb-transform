@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.13.2-alpha.0"></a>
+## [1.13.2-alpha.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.13.1-alpha.0...miniapp-adapter@1.13.2-alpha.0) (2020-06-22)
+
+
+### Features
+
+* 🎸 补全百度Page缺失的函数 ([88530f9](https://github.com/landn172/jgb-transform/commit/88530f9))
+
+
+
+
+
 <a name="1.13.1-alpha.0"></a>
 ## [1.13.1-alpha.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.13.0...miniapp-adapter@1.13.1-alpha.0) (2020-06-16)
 
