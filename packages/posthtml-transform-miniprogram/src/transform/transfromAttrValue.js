@@ -144,7 +144,7 @@ function transformSwan(node) {
   }
   if (node.tag === 'scroll-view') {
     // {{ scroll }} => {= scroll =}
-    ['scroll-top', 'scroll-left', 'scroll-into-view'].forEach((attr) => {
+    ['scroll-top', 'scroll-left', /* 'scroll-into-view' */].forEach((attr) => {
       const contains = !!attrs[attr]
       if (!contains) return;
       attrs[attr] = attrs[attr].replace(MATCH_BRACE, (g, $1) => {
