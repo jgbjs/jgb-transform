@@ -11,7 +11,7 @@
   },
   "scripts": {
     "release": "lerna publish",
-    "release:beta": "lerna publish  --force-publish=* --exact --skip-temp-tag --npm-tag=beta --cd-version prepatch",
+    "release:beta": "lerna publish  --force-publish=* --exact --skip-temp-tag --npm-tag=beta",
     "build:all": "lerna run build --parallel",
     "watch:all": "lerna run --parallel build -- --watch",
     "sub:remote.add": "git remote add -f weapp git@github.com:jgbjs/miniprogram-demo.git",

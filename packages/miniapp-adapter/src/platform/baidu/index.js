@@ -4,6 +4,7 @@ import AdapterBehavior from './behavior'
 import AdapterPage, { WrapPage } from './page'
 import * as Location from './location'
 import * as Device from './device'
+import * as Wxml from './wxml'
 
 const api = {};
 const _swan = typeof swan !== "undefined" && swan;
@@ -14,6 +15,7 @@ if (_swan) {
 Extend(api, Location);
 Extend(api, Device);
 
+Extend(api, Wxml);
 console.log('invoke baidu')
 
 export default ProxyInvokePlatformApi(api)
