@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.14.0"></a>
+# [1.14.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.13.2-alpha.0...miniapp-adapter@1.14.0) (2020-07-03)
+
+
+### Bug Fixes
+
+* 🐛 remove set alipay default request ContentType ([e45035b](https://github.com/landn172/jgb-transform/commit/e45035b))
+
+
+### Features
+
+* 🎸 增加createSelectorQuery对自定义组件的选择器适配 ([7594106](https://github.com/landn172/jgb-transform/commit/7594106))
+
+
+
+
+
 <a name="1.13.2-alpha.0"></a>
 ## [1.13.2-alpha.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.13.1-alpha.0...miniapp-adapter@1.13.2-alpha.0) (2020-06-22)
 
