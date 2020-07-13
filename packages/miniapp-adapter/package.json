@@ -18,11 +18,11 @@
     "prepublishOnly": "yarn run build && yarn run test"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "@types/jest": "^23.3.11",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "jest": "^22.4.3"
+    "jest": "^26.1.0"
   },
   "dependencies": {
     "miniapp-regenerator-runtime": "^1.0.0"
