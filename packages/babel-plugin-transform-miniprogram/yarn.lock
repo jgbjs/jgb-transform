@@ -2952,9 +2952,9 @@ lodash.sortby@^4.7.0:
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
 lodash@^4.17.11, lodash@^4.17.4:
-  version "4.17.11"
-  resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 loose-envify@^1.0.0:
   version "1.4.0"
@@ -3069,10 +3069,10 @@ mimic-fn@^1.0.0:
   resolved "https://registry.npm.taobao.org/mimic-fn/download/mimic-fn-1.2.0.tgz#820c86a39334640e99516928bd03fca88057d022"
   integrity sha1-ggyGo5M0ZA6ZUWkovQP8qIBX0CI=
 
-miniapp-adapter@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.npm.taobao.org/miniapp-adapter/download/miniapp-adapter-1.5.2.tgz#4bc7bbbf84afa4feb7ae04c2eaf418d469b68ad7"
-  integrity sha1-S8e7v4SvpP63rgTC6vQY1Gm2itc=
+miniapp-adapter@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/miniapp-adapter/-/miniapp-adapter-1.14.0.tgz#298139952a51d818593e2fc0ebdd9c914e0771e6"
+  integrity sha512-ZEcchYa+oTIe/o4rnWDkGcOyFjfZi6iG+fF7yUVTMNVHeQ/SFwdgaTGnFLbm4veRymOf3TVkx0iny5H39vaRsg==
   dependencies:
     miniapp-regenerator-runtime "^1.0.0"
 
