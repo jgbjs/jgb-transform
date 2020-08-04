@@ -1,3 +1,5 @@
+require('./polyfill')
+
 const wx = require("../../src/platform/baidu").default;
 
 global.swan = {
