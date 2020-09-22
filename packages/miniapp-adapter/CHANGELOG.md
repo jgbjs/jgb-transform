@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.15.0"></a>
+# [1.15.0](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.14.0...miniapp-adapter@1.15.0) (2020-09-22)
+
+
+### Features
+
+* 🎸 add swan.getLaunchOptionsSync polyfill ([744f061](https://github.com/jgbjs/jgb-transform/commit/744f061))
+* 增加relations模拟 ([1b179f3](https://github.com/jgbjs/jgb-transform/commit/1b179f3))
+
+
+
+
+
 <a name="1.14.0"></a>
 # [1.14.0](https://github.com/landn172/jgb-transform/compare/miniapp-adapter@1.13.2-alpha.0...miniapp-adapter@1.14.0) (2020-07-03)
 
