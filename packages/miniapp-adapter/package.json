@@ -1,6 +1,6 @@
 {
   "name": "miniapp-adapter",
-  "version": "1.15.0",
+  "version": "1.15.1-alpha.0+742053a",
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/miniapp-adapter",
@@ -27,5 +27,5 @@
   "dependencies": {
     "miniapp-regenerator-runtime": "^1.0.0"
   },
-  "gitHead": "785f84e87624fc1a2e56eb96ab8d936e96923640"
+  "gitHead": "742053a324c2eb3170fa801f103664a1b03c9543"
 }

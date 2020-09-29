@@ -1,6 +1,6 @@
 {
   "name": "posthtml-transform-miniprogram",
-  "version": "0.8.3",
+  "version": "0.8.4-alpha.0+742053a",
   "description": "posthtml-transform-miniprogram",
   "author": "蒋瑶 <landn172@gmail.com>",
   "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/posthtml-transform-miniprogram#readme",
@@ -35,5 +35,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.11"
-  }
+  },
+  "gitHead": "742053a324c2eb3170fa801f103664a1b03c9543"
 }
