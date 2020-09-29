@@ -26,6 +26,7 @@ yarn add babel-plugin-transform-miniprogram --dev
 | source | 需要转义的关键字 | wx              |         |
 | target | 替换值           | swan            | swan,my,tt |
 | lib    | 适配库（^0.2.0） | miniapp-adapter |         |
+| name    | 资源路径（^0.12.0） |  |         |
 
 ## details
 

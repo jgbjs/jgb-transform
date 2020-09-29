@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "jgb build -t my"
+    "debug": "jgb build -t my"
   },
   "devDependencies": {
     "@types/jest": "^23.3.11",
