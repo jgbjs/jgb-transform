@@ -22,6 +22,8 @@ const COMPONENT_WRAP = "WrapComponent";
 const ADAPTER_BEHAVIOR = "AdapterBehavior";
 const ADAPTER_PAGE = "AdapterPage";
 const PAGE_WRAP = "WrapPage";
+const ADAPTER_APP = "AdapterApp";
+const APP_WRAP = "WrapApp";
 
 /** 设置是否需要导入默认需要替换的适配库  */
 const ImportDefaultSpecifierKey = "needImportDefaultSpecifier";
@@ -164,6 +166,15 @@ export default function ({ types: t }) {
               COMPONENT_WRAP
             );
             break;
+          case "App":
+            init.replaceWith(
+              t.callExpression(t.identifier(APP_WRAP), [t.identifier(name)])
+            );
+            this[ImportSpecifiersKey] = safePush(
+              this[ImportSpecifiersKey],
+              APP_WRAP
+            );
+            break;
         }
       },
       /**
@@ -294,6 +305,15 @@ export default function ({ types: t }) {
             this[ImportSpecifiersKey] = safePush(
               this[ImportSpecifiersKey],
               ADAPTER_PAGE
+            );
+            break;
+          // App({}) => AdapterApp({}, App)
+          case "App":
+            path.node.callee.name = ADAPTER_APP;
+            path.node.arguments.push(t.Identifier(name));
+            this[ImportSpecifiersKey] = safePush(
+              this[ImportSpecifiersKey],
+              ADAPTER_APP
             );
             break;
           // Behavior({}) => AdapterBehavior({})

@@ -97,16 +97,25 @@ export function AdapterComponent(opts) {
 
         if (o) {
           // 在触发props change时，this.data的值还没有改变
-          try {
-            if (typeof newVal === "object" && newVal !== null) {
-              this.data[key] = JSON.parse(JSON.stringify(newVal));
-            } else {
-              this.data[key] = newVal;
+          // try {
+          //   if (typeof newVal === "object" && newVal !== null) {
+          //     this.data[key] = JSON.parse(JSON.stringify(newVal));
+          //   } else {
+          //     this.data[key] = newVal;
+          //   }
+          // } catch (error) {
+          //   this.data[key] = newVal;
+          // }
+          // o.observer 在微信中支持string，指向当前方法
+          if (typeof o.observer === "function") {
+            o.observer.call(this, newVal, oldVal, [key]);
+          } else if (typeof o.observer === "string") {
+            const ob = this[o.observer];
+            if (typeof ob === "function") {
+              o.observer = ob;
+              ob.call(this, newVal, oldVal, [key]);
             }
-          } catch (error) {
-            this.data[key] = newVal;
           }
-          o.observer.call(this, newVal, oldVal, [key]);
         }
       }
     });
@@ -135,12 +144,12 @@ export function AdapterComponent(opts) {
   /** 1.14开始支持，类似create  */
   opts.onInit = function () {
     addComponentToPage(this);
-    extendInstance(this);
+    extendInstance(this, opts);
     collectRelations(this, relations);
 
     // 支付宝小程序没有 externalClasses
     // 测试下来方案需要给设置的匹配的外部样式替换为实际的样式
-    // <component class="custom-class" /> 
+    // <component class="custom-class" />
     // => <component class="{{fixcustomClass}}" />
     if (Array.isArray(externalClasses)) {
       const props = this.props;
@@ -188,7 +197,7 @@ export function AdapterComponent(opts) {
     Object.keys(opts.properties).forEach((key) => {
       let defaultValue = opts.properties[key];
       if (typeof defaultValue === "function") {
-        defaultValue = new defaultValue();
+        defaultValue = defaultValue();
       } else {
         const { type, value, observer } = defaultValue;
         defaultValue = value;
@@ -235,9 +244,33 @@ function normalizeProp(propKey) {
  * 扩展实例属性
  * @param {*} ctx
  */
-function extendInstance(ctx) {
+function extendInstance(ctx, opts) {
   // 适配微信小程序属性
   if (!ctx.properties) {
+    // init data from props
+    // 代理data
+    const proxyData = Object.keys(opts.props).map((key) => {
+      return {
+        [key]: {
+          enumerable: true,
+          get() {
+            return ctx.props[key];
+          },
+          set() {},
+        },
+      };
+    });
+
+    if (proxyData.length) {
+      Object.defineProperties(
+        ctx.data,
+        proxyData.reduce((tobj, sobj) => {
+          return Object.assign(tobj, sobj);
+        }),
+        {}
+      );
+    }
+
     Object.defineProperty(ctx, "properties", {
       get() {
         return ctx.props;

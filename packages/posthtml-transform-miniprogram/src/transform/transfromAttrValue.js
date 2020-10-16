@@ -98,6 +98,13 @@ function transfromAliapp(node, addAsyncTasks, done) {
     replaceAttrNames(nameMapping);
   }
 
+  // 支付宝非view标签，不支持hidden，需要转换为 if
+  if (node.tag !== "view" && attrs["hidden"]) {
+    const value = attrs["hidden"].replace(MATCH_BRACE, (g ,s1)=> `{{ !(${s1}) }}`)
+    attrs["a:if"] = value;
+    delete attrs["hidden"];
+  }
+
   fixExternalClass(attrs, addAsyncTasks, done);
 
   return node;

@@ -177,9 +177,10 @@ PluginTester({
       output: `import { AdapterPage } from "miniapp-adapter/lib/platform/aliapp/index.js";
       AdapterPage({}, Page);`,
     },
-    "ali: while not replace App": {
+    "ali: replace App": {
       code: `App({});`,
-      output: `App({});`,
+      output: `import { AdapterApp } from "miniapp-adapter/lib/platform/aliapp/index.js";
+      AdapterApp({}, App);`,
     },
     "Page assignment": {
       code: `const oldPage = Page;
