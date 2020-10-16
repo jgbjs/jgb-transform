@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/jgbjs/jgb-transform/compare/wx2aliapp@1.6.7...wx2aliapp@1.7.0) (2020-10-16)
+
+
+### Features
+
+* 增强微信转支付宝的缺失功能 ([742053a](https://github.com/jgbjs/jgb-transform/commit/742053a))
+
+
+
+
+
 <a name="1.6.7"></a>
 ## [1.6.7](https://github.com/jgbjs/jgb-transform/compare/wx2aliapp@1.6.6...wx2aliapp@1.6.7) (2020-09-22)
 

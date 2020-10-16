@@ -1,6 +1,6 @@
 {
   "name": "miniapp-adapter",
-  "version": "1.15.1-alpha.0+742053a",
+  "version": "1.16.0",
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/miniapp-adapter",

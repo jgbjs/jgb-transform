@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.11.8...babel-plugin-transform-miniprogram@0.12.0) (2020-10-16)
+
+
+### Features
+
+* 增强微信转支付宝的缺失功能 ([742053a](https://github.com/landn172/jgb-transform/commit/742053a))
+* 支持更多转支付宝功能 ([941fb75](https://github.com/landn172/jgb-transform/commit/941fb75))
+
+
+
+
+
 <a name="0.11.8"></a>
 ## [0.11.8](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.11.7...babel-plugin-transform-miniprogram@0.11.8) (2020-09-22)
 

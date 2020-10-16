@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.16.0"></a>
+# [1.16.0](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.15.0...miniapp-adapter@1.16.0) (2020-10-16)
+
+
+### Features
+
+* 增强微信转支付宝的缺失功能 ([742053a](https://github.com/jgbjs/jgb-transform/commit/742053a))
+* 支持更多转支付宝功能 ([941fb75](https://github.com/jgbjs/jgb-transform/commit/941fb75))
+
+
+
+
+
 <a name="1.15.0"></a>
 # [1.15.0](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.14.0...miniapp-adapter@1.15.0) (2020-09-22)
 
