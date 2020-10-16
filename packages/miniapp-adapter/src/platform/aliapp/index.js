@@ -2,6 +2,7 @@ import { ProxyInvokePlatformApi, Extend } from "../../utils/index";
 import AdapterComponent, { WrapComponent } from "./component";
 import AdapterBehavior from "./behavior";
 import AdapterPage, { WrapPage } from "./page";
+import AdapterApp, { WrapApp } from "./app";
 import * as NetWork from "./network";
 import * as Wxml from "./wxml";
 import * as Interface from "./interface";
@@ -40,4 +41,6 @@ export {
   AdapterPage,
   WrapComponent,
   WrapPage,
+  AdapterApp,
+  WrapApp
 };
