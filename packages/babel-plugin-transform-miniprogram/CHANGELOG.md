@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.12.1"></a>
+## [0.12.1](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.12.0...babel-plugin-transform-miniprogram@0.12.1) (2020-10-16)
+
+**Note:** Version bump only for package babel-plugin-transform-miniprogram
+
+
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/landn172/jgb-transform/compare/babel-plugin-transform-miniprogram@0.11.8...babel-plugin-transform-miniprogram@0.12.0) (2020-10-16)
 
