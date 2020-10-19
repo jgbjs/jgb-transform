@@ -245,32 +245,32 @@ function normalizeProp(propKey) {
  * @param {*} ctx
  */
 function extendInstance(ctx, opts) {
+  // init data from props
+  // 代理data
+  const proxyData = Object.keys(opts.props || {}).map((key) => {
+    return {
+      [key]: {
+        enumerable: true,
+        get() {
+          return ctx.props[key];
+        },
+        set() {},
+      },
+    };
+  });
+
+  if (proxyData.length) {
+    Object.defineProperties(
+      ctx.data,
+      proxyData.reduce((tobj, sobj) => {
+        return Object.assign(tobj, sobj);
+      }),
+      {}
+    );
+  }
+
   // 适配微信小程序属性
   if (!ctx.properties) {
-    // init data from props
-    // 代理data
-    const proxyData = Object.keys(opts.props).map((key) => {
-      return {
-        [key]: {
-          enumerable: true,
-          get() {
-            return ctx.props[key];
-          },
-          set() {},
-        },
-      };
-    });
-
-    if (proxyData.length) {
-      Object.defineProperties(
-        ctx.data,
-        proxyData.reduce((tobj, sobj) => {
-          return Object.assign(tobj, sobj);
-        }),
-        {}
-      );
-    }
-
     Object.defineProperty(ctx, "properties", {
       get() {
         return ctx.props;

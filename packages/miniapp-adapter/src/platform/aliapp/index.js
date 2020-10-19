@@ -14,6 +14,7 @@ import * as Device from "./device";
 import * as Storage from "./storage";
 import * as UI from "./ui";
 import * as OpenApi from "./open-api";
+import * as Base from './base'
 
 console.log("invoke aliapp");
 const api = {};
@@ -32,6 +33,7 @@ Extend(api, Location);
 Extend(api, Device);
 Extend(api, UI);
 Extend(api, OpenApi);
+Extend(api, Base);
 
 export default ProxyInvokePlatformApi(api);
 
