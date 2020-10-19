@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.6.10"></a>
+## [1.6.10](https://github.com/jgbjs/jgb-transform/compare/wx2swan@1.6.9...wx2swan@1.6.10) (2020-10-19)
+
+**Note:** Version bump only for package wx2swan
+
+
+
+
+
 <a name="1.6.9"></a>
 ## [1.6.9](https://github.com/jgbjs/jgb-transform/compare/wx2swan@1.6.8...wx2swan@1.6.9) (2020-10-16)
 

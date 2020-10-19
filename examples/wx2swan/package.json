@@ -1,7 +1,7 @@
 {
   "name": "wx2swan",
   "private": true,
-  "version": "1.6.9",
+  "version": "1.6.10",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
