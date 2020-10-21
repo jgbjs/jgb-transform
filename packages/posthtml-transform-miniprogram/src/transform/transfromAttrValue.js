@@ -12,7 +12,7 @@ const ENTER_STR = "\n ";
 const MATCH_BRACE = /(?:{){2,}([^}]+)(?:}){2,}/;
 
 const strToClassReg = _.memoize((str) => {
-  return new RegExp(`(^|\\s)(${str})`);
+  return new RegExp(`(^|\\s)(${str})($|\\s)`);
 });
 
 /**
@@ -100,7 +100,10 @@ function transfromAliapp(node, addAsyncTasks, done) {
 
   // 支付宝非view标签，不支持hidden，需要转换为 if
   if (node.tag !== "view" && attrs["hidden"]) {
-    const value = attrs["hidden"].replace(MATCH_BRACE, (g ,s1)=> `{{ !(${s1}) }}`)
+    const value = attrs["hidden"].replace(
+      MATCH_BRACE,
+      (g, s1) => `{{ !(${s1}) }}`
+    );
     attrs["a:if"] = value;
     delete attrs["hidden"];
   }
@@ -123,9 +126,9 @@ function transfromAliapp(node, addAsyncTasks, done) {
 /**
  *  * 修复支付宝Component缺失 externalClasses功能
  *  * 替换`externalClass`中的class为修复后的fixData字段
- *  class="target-class"  => class="{{fixtargetClass}}"
+ *  class="target-class"  => class="{{fixtargetClass ? fixtargetClass : 'target-class' }}"
  */
-function fixExternalClass(attrs, addAsyncTasks, done) {
+export function fixExternalClass(attrs, addAsyncTasks, done) {
   // 如果属性有class
   if (attrs.class) {
     // addAsyncTasks();
@@ -135,9 +138,10 @@ function fixExternalClass(attrs, addAsyncTasks, done) {
     const externalClasses = json.externalClasses || [];
     externalClasses.forEach((cl) => {
       if (attrs.class.includes(cl)) {
+        const propName = `fix${normalizeProp(cl)}`;
         attrs.class = attrs.class.replace(
           strToClassReg(cl),
-          (g, s1) => s1 + `{{fix${normalizeProp(cl)}}}`
+          (g, s1, s2, s3) => s1 + `{{${propName} ? ${propName} : '${cl}'}}` + s3
         );
       }
     });
