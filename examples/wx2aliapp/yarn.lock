@@ -613,6 +613,15 @@ babel-plugin-transform-inline-environment-variables@^0.3.0:
   resolved "http://registry.npm.taobao.org/babel-plugin-transform-inline-environment-variables/download/babel-plugin-transform-inline-environment-variables-0.3.0.tgz#b9e1929535480e72a9e37210df99aebca007a7b5"
   integrity sha1-ueGSlTVIDnKp43IQ35muvKAHp7U=
 
+babel-plugin-transform-miniprogram@0.11.8:
+  version "0.11.8"
+  resolved "https://registry.npm.taobao.org/babel-plugin-transform-miniprogram/download/babel-plugin-transform-miniprogram-0.11.8.tgz#f87cc8f377bb1ce70cfbfb7272e1b20044744691"
+  integrity sha1-+HzI83e7HOcM+/tycuGyAER0RpE=
+  dependencies:
+    lodash "^4.17.11"
+    miniapp-adapter "1.15.0"
+    resolve "^1.8.1"
+
 babel-plugin-transform-miniprogram@^0.11.1:
   version "0.11.1"
   resolved "https://registry.npm.taobao.org/babel-plugin-transform-miniprogram/download/babel-plugin-transform-miniprogram-0.11.1.tgz?cache=0&sync_timestamp=1588844230990&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-plugin-transform-miniprogram%2Fdownload%2Fbabel-plugin-transform-miniprogram-0.11.1.tgz#3122834a76a7950bd8e0a65b572df6c078e527c5"
@@ -1690,11 +1699,6 @@ esprima@^2.6.0:
   resolved "http://registry.npm.taobao.org/esprima/download/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
   integrity sha1-luO3DVd59q1JzQMmc9HDEnZ7pYE=
 
-esprima@^4.0.0:
-  version "4.0.1"
-  resolved "http://registry.npm.taobao.org/esprima/download/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
-  integrity sha1-E7BM2z5sXRnfkatph6hpVhmwqnE=
-
 esutils@^2.0.2:
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/esutils/download/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
@@ -2389,6 +2393,9 @@ js-yaml@^3.12.0, js-yaml@^3.9.0:
   version "3.12.0"
   resolved "http://registry.npm.taobao.org/js-yaml/download/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
   integrity sha1-6u1lbsg0TxD1J8a/obbiJE3hZ9E=
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^4.0.0"
 
 js-yaml@~3.7.0:
   version "3.7.0"
@@ -2592,6 +2599,13 @@ mimic-fn@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/mimic-fn/download/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha1-ftLCzMyvhNP/y3pptXcR/CCDQBs=
+
+miniapp-adapter@1.15.0:
+  version "1.15.0"
+  resolved "https://registry.npm.taobao.org/miniapp-adapter/download/miniapp-adapter-1.15.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fminiapp-adapter%2Fdownload%2Fminiapp-adapter-1.15.0.tgz#54e5e4a1e71aebeb476c75c7f1c79fa45e50805c"
+  integrity sha1-VOXkoeca6+tHbHXH8cefpF5QgFw=
+  dependencies:
+    miniapp-regenerator-runtime "^1.0.0"
 
 miniapp-adapter@^1.9.5:
   version "1.9.5"
@@ -3509,6 +3523,13 @@ posthtml-render@^1.1.0, posthtml-render@^1.1.4:
   version "1.1.4"
   resolved "http://registry.npm.taobao.org/posthtml-render/download/posthtml-render-1.1.4.tgz#95dac09892f4f183fad5ac823f08f42c0256551e"
   integrity sha1-ldrAmJL08YP61ayCPwj0LAJWVR4=
+
+posthtml-transform-miniprogram@0.8.3:
+  version "0.8.3"
+  resolved "https://registry.npm.taobao.org/posthtml-transform-miniprogram/download/posthtml-transform-miniprogram-0.8.3.tgz#3a3a9e8c93a7fe3a5bf9a27a3955973c2bb82dea"
+  integrity sha1-OjqejJOn/jpb+aJ6OVWXPCu4Leo=
+  dependencies:
+    lodash "^4.17.11"
 
 posthtml-transform-miniprogram@^0.6.0:
   version "0.6.0"

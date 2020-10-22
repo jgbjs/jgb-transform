@@ -84,6 +84,8 @@ export function AdapterComponent(opts) {
     const noopReg = /\s+(noop)\s*\(/;
     const props = this.props || {};
     prevProps = prevProps || {};
+    
+    let changeData = {};
     Object.keys(props).forEach((key) => {
       const oldVal = prevProps[key];
       let newVal = props[key];
@@ -97,15 +99,15 @@ export function AdapterComponent(opts) {
 
         if (o) {
           // 在触发props change时，this.data的值还没有改变
-          // try {
-          //   if (typeof newVal === "object" && newVal !== null) {
-          //     this.data[key] = JSON.parse(JSON.stringify(newVal));
-          //   } else {
-          //     this.data[key] = newVal;
-          //   }
-          // } catch (error) {
-          //   this.data[key] = newVal;
-          // }
+          try {
+            if (typeof newVal === "object" && newVal !== null) {
+              changeData[key] = JSON.parse(JSON.stringify(newVal));
+            } else {
+              changeData[key] = newVal;
+            }
+          } catch (error) {
+            changeData[key] = newVal;
+          }
           // o.observer 在微信中支持string，指向当前方法
           if (typeof o.observer === "function") {
             o.observer.call(this, newVal, oldVal, [key]);
@@ -119,6 +121,10 @@ export function AdapterComponent(opts) {
         }
       }
     });
+    
+    if (Object.keys(changeData).length > 0) {
+      this.setData(changeData);
+    }
   }
 
   /** 组件生命周期函数，组件创建时和更新前触发 */
