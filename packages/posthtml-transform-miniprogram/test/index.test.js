@@ -64,7 +64,7 @@ function processHtml(received, target = "swan") {
 
 describe("wx => aliapp", () => {
   test("externalClasses", async () => {
-    await expect(`<view class="custom-class"></view>`).toBeAliapp('<view class="{{fixcustomClass}}"></view>')
+    await expect(`<view class="custom-class"></view>`).toBeAliapp(`<view class="{{fixcustomClass ? fixcustomClass : 'custom-class'}}"></view>`)
   });
 
   test("wx:if => a:if", async () => {
