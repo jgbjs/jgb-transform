@@ -10,6 +10,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
+    "start": "lerna bootstrap",
     "release": "lerna publish",
     "release:beta": "lerna publish  --force-publish=* --exact --skip-temp-tag --npm-tag=beta",
     "build:all": "lerna run build --parallel",
