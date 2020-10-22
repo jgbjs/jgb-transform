@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.6.11"></a>
+## [1.6.11](https://github.com/jgbjs/jgb-transform/compare/wx2swan@1.6.10...wx2swan@1.6.11) (2020-10-22)
+
+
+### Bug Fixes
+
+* 微信转支付宝: 组件中 data 被代理后未同步 props 上的数据问题修复 ([de92b6e](https://github.com/jgbjs/jgb-transform/commit/de92b6e))
+
+
+
+
+
 <a name="1.6.10"></a>
 ## [1.6.10](https://github.com/jgbjs/jgb-transform/compare/wx2swan@1.6.9...wx2swan@1.6.10) (2020-10-19)
 

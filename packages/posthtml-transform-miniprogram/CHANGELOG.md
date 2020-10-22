@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.3"></a>
+## [0.9.3](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.9.2...posthtml-transform-miniprogram@0.9.3) (2020-10-22)
+
+
+### Bug Fixes
+
+* 微信转支付宝: 组件中 data 被代理后未同步 props 上的数据问题修复 ([de92b6e](https://github.com/landn172/jgb-transform/commit/de92b6e))
+* 微信转支付宝externalClass处理上的一些问题 ([f19dac7](https://github.com/landn172/jgb-transform/commit/f19dac7))
+
+
+
+
+
 <a name="0.9.2"></a>
 ## [0.9.2](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.9.1...posthtml-transform-miniprogram@0.9.2) (2020-10-19)
 

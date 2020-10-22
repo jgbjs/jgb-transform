@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.7.3"></a>
+## [1.7.3](https://github.com/jgbjs/jgb-transform/compare/wx2aliapp@1.7.2...wx2aliapp@1.7.3) (2020-10-22)
+
+
+### Bug Fixes
+
+* 微信转支付宝: 组件中 data 被代理后未同步 props 上的数据问题修复 ([de92b6e](https://github.com/jgbjs/jgb-transform/commit/de92b6e))
+
+
+
+
+
 <a name="1.7.2"></a>
 ## [1.7.2](https://github.com/jgbjs/jgb-transform/compare/wx2aliapp@1.7.1...wx2aliapp@1.7.2) (2020-10-19)
 
