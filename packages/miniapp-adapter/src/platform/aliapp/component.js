@@ -84,7 +84,7 @@ export function AdapterComponent(opts) {
     const noopReg = /\s+(noop)\s*\(/;
     const props = this.props || {};
     prevProps = prevProps || {};
-    
+
     let changeData = {};
     Object.keys(props).forEach((key) => {
       const oldVal = prevProps[key];
@@ -102,10 +102,11 @@ export function AdapterComponent(opts) {
           try {
             if (typeof newVal === "object" && newVal !== null) {
               changeData[key] = JSON.parse(JSON.stringify(newVal));
-            } else {
+            } else if (typeof newVal !== "function") {
               changeData[key] = newVal;
             }
           } catch (error) {
+            console.warn('[wx2alipay] sync props to data error', error)
             changeData[key] = newVal;
           }
           // o.observer 在微信中支持string，指向当前方法
@@ -121,7 +122,7 @@ export function AdapterComponent(opts) {
         }
       }
     });
-    
+
     if (Object.keys(changeData).length > 0) {
       this.setData(changeData);
     }
@@ -247,16 +248,14 @@ function normalizeProp(propKey) {
 }
 
 /**
- * 扩展实例属性
- * @param {*} ctx
+ * 由于支付宝data上的不能访问props上的数据
+ * 在data上代理访问props上的数据
  */
-function extendInstance(ctx, opts) {
-  // init data from props
-  // 代理data
-  const proxyData = Object.keys(opts.props || {}).map((key) => {
+function proxyGetPropsFromData(ctx, props = {}) {
+  const proxyData = Object.keys(props).map((key) => {
     return {
       [key]: {
-        enumerable: true,
+        configurable: true,
         get() {
           return ctx.props[key];
         },
@@ -274,7 +273,16 @@ function extendInstance(ctx, opts) {
       {}
     );
   }
+}
 
+/**
+ * 扩展实例属性
+ * @param {*} ctx
+ */
+function extendInstance(ctx, opts) {
+  // init data from props
+  // 代理data
+  proxyGetPropsFromData(ctx, ctx.props || opts.props);
   // 适配微信小程序属性
   if (!ctx.properties) {
     Object.defineProperty(ctx, "properties", {

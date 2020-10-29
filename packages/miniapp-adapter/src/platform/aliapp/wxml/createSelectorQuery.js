@@ -52,10 +52,10 @@ class SelectorQuery {
       page: this.context
     })
 
-    const steps = this.steps;
-    const callbacks = this.callbacks;
+    const steps = this.steps.splice(0);
+    const callbacks = this.callbacks.splice(0);
 
-    selectorQuery = this.steps.reduce((selectorQuery, {name, batchId, args=[]}) => {
+    selectorQuery = steps.reduce((selectorQuery, {name, batchId, args=[]}) => {
       const fn = selectorQuery[name]
       return fn.apply(selectorQuery, args)
     }, selectorQuery)

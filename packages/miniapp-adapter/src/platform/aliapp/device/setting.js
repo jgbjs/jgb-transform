@@ -16,7 +16,7 @@ export function getSetting(opts) {
     ...opts,
     success(res) {
       success && success({
-        authSetting: formateToWeChat(res.authSetting)
+        authSetting: formatToWeChat(res.authSetting)
       })
     }
   })
