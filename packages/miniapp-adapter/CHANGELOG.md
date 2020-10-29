@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.16.4"></a>
+## [1.16.4](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.16.3...miniapp-adapter@1.16.4) (2020-10-29)
+
+
+### Bug Fixes
+
+* posthtml test error ([12f7870](https://github.com/jgbjs/jgb-transform/commit/12f7870))
+* 修复支付宝适配库一些缺失api,以及完善适配功能 ([d3c77c5](https://github.com/jgbjs/jgb-transform/commit/d3c77c5))
+
+
+
+
+
 <a name="1.16.3"></a>
 ## [1.16.3](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.16.2...miniapp-adapter@1.16.3) (2020-10-22)
 

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.4"></a>
+## [0.9.4](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.9.3...posthtml-transform-miniprogram@0.9.4) (2020-10-29)
+
+
+### Bug Fixes
+
+* posthtml test error ([12f7870](https://github.com/landn172/jgb-transform/commit/12f7870))
+* 修复支付宝转义xml遗漏一些事件 ([d9d8663](https://github.com/landn172/jgb-transform/commit/d9d8663))
+
+
+
+
+
 <a name="0.9.3"></a>
 ## [0.9.3](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.9.2...posthtml-transform-miniprogram@0.9.3) (2020-10-22)
 
