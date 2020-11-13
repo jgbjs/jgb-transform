@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.7.5"></a>
+## [1.7.5](https://github.com/jgbjs/jgb-transform/compare/wx2aliapp@1.7.4...wx2aliapp@1.7.5) (2020-11-13)
+
+**Note:** Version bump only for package wx2aliapp
+
+
+
+
+
 <a name="1.7.4"></a>
 ## [1.7.4](https://github.com/jgbjs/jgb-transform/compare/wx2aliapp@1.7.3...wx2aliapp@1.7.4) (2020-10-29)
 

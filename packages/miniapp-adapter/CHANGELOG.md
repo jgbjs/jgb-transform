@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.16.5"></a>
+## [1.16.5](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.16.4...miniapp-adapter@1.16.5) (2020-11-13)
+
+
+### Bug Fixes
+
+* 修复转换缺失 ([da8059f](https://github.com/jgbjs/jgb-transform/commit/da8059f))
+
+
+
+
+
 <a name="1.16.4"></a>
 ## [1.16.4](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.16.3...miniapp-adapter@1.16.4) (2020-10-29)
 
