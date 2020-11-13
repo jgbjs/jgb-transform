@@ -247,7 +247,7 @@ export default function ({ types: t }) {
             );
             if (set.size > len) {
               json.externalClasses = [...set].filter(Boolean);
-              setConfigExternalClass(JSON.stringify(json));
+              setConfigExternalClass(JSON.stringify(json, null, "\t"));
             }
           }
         }

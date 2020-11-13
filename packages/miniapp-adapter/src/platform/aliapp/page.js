@@ -1,34 +1,42 @@
 // @jgb-ignore
 
-import { selectAllComponents, selectComponent } from './base'
-import { defineProperty } from '../../utils/index'
+import { selectAllComponents, selectComponent } from "./base";
+import { defineProperty } from "../../utils/index";
+import { createSelectorQuery } from "./wxml/createSelectorQuery";
+import { createIntersectionObserver } from "./wxml/createIntersectionObserver";
 
 export default function AdapterAliappPage(opts, ...otherOpts) {
-  const oldLoad = opts.onLoad || (() => {
-  });
+  const oldLoad = opts.onLoad || (() => {});
 
-  opts.onLoad = function(...args) {
-    extendInstance.call(this)
-    oldLoad.apply(this, args)
-  }
+  opts.onLoad = function (...args) {
+    extendInstance(this);
+    oldLoad.apply(this, args);
+  };
 
   // 取最后一个参数作为Page
-  const InjectPage = otherOpts.length ? (otherOpts[otherOpts.length - 1] || Page) : Page;
+  const InjectPage = otherOpts.length
+    ? otherOpts[otherOpts.length - 1] || Page
+    : Page;
 
-  InjectPage(opts)
+  InjectPage(opts);
 }
 
 export function WrapPage(InjectPage = Page) {
   return (opts) => {
-    AdapterAliappPage(opts, InjectPage)
-  }
+    AdapterAliappPage(opts, InjectPage);
+  };
 }
 
 /**
  * 扩展实例属性
- * @param {*} ctx 
+ * @param {*} ctx
  */
 function extendInstance(ctx) {
-  defineProperty(this, 'selectAllComponents', selectAllComponents)
-  defineProperty(this, 'selectComponent', selectComponent)
+  defineProperty(ctx, "selectAllComponents", selectAllComponents);
+  defineProperty(ctx, "selectComponent", selectComponent);
+  defineProperty(ctx, "createSelectorQuery", () => createSelectorQuery());
+
+  defineProperty(ctx, "createIntersectionObserver", (options) =>
+    createIntersectionObserver(ctx, options)
+  );
 }
