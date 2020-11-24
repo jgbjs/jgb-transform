@@ -293,16 +293,6 @@ PluginTester({
       code: `(ctx || wx).createSelectorQuery();`,
       output: `import wx from "miniapp-adapter/lib/platform/tt/index.js";
       (ctx || wx).createSelectorQuery();`,
-    },
-    [`swan: will not tranform Page,Component,Behavior,App`]: {
-      code: `Component({});
-      App({});
-      Page({});
-      Behavior({});`,
-      output: `Component({});
-      App({});
-      Page({});
-      Behavior({});`,
-    },
+    }
   },
 });
