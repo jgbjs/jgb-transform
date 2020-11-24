@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-miniprogram",
-  "version": "0.12.5",
+  "version": "0.13.0",
   "description": "babel plugin tranfrom api xx to xx",
   "author": "蒋瑶 <landn172@gmail.com>",
   "homepage": "https://github.com/jgbjs/jgb-transform/tree/master/packages/babel-plugin-transform-miniprogram#readme",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "miniapp-adapter": "1.16.5",
+    "miniapp-adapter": "1.17.0",
     "resolve": "^1.8.1"
   },
   "devDependencies": {

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.17.0"></a>
+# [1.17.0](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.16.5...miniapp-adapter@1.17.0) (2020-11-24)
+
+
+### Features
+
+* 支持字节跳动小程序 ([5ee31f4](https://github.com/jgbjs/jgb-transform/commit/5ee31f4))
+
+
+
+
+
 <a name="1.16.5"></a>
 ## [1.16.5](https://github.com/jgbjs/jgb-transform/compare/miniapp-adapter@1.16.4...miniapp-adapter@1.16.5) (2020-11-13)
 
