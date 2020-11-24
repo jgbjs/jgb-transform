@@ -52,7 +52,9 @@ const shouldAdapterPlatform = (target) => {
 
   const result =
     aliasAdapterTarget["my"].indexOf(target) >= 0 ||
-    aliasAdapterTarget["swan"].indexOf(target) >= 0;
+    aliasAdapterTarget["swan"].indexOf(target) >= 0 ||
+    aliasAdapterTarget["tt"].indexOf(target) >= 0;
+
   cacheResult.set(target, result);
   return result;
 };
