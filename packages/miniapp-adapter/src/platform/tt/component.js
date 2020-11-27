@@ -51,7 +51,7 @@ export function AdapterComponent(opts) {
       }
     }
   }
-  opts.relations = {};
+  opts.relations = relations;
 
   return opts;
 }
