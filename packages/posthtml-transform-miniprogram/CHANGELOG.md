@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.7"></a>
+## [0.9.7](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.9.6...posthtml-transform-miniprogram@0.9.7) (2020-11-27)
+
+**Note:** Version bump only for package posthtml-transform-miniprogram
+
+
+
+
+
 <a name="0.9.6"></a>
 ## [0.9.6](https://github.com/landn172/jgb-transform/compare/posthtml-transform-miniprogram@0.9.5...posthtml-transform-miniprogram@0.9.6) (2020-11-24)
 
