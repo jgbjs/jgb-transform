@@ -2,6 +2,7 @@ import {
   addComponentToPage,
   removeComponentToPage,
 } from "../../emulation/pageComponents";
+import { addAsyncMethod } from "./common";
 
 /**
  * 适配微信小程序Component参数的组件方法
@@ -38,7 +39,7 @@ export function AdapterComponent(opts) {
   };
 
   const methods = opts.methods || {};
-  opts.methods = methods;
+  opts.methods = addAsyncMethod(methods);
 
   for (const key of Object.keys(relations)) {
     const value = relations[key];
