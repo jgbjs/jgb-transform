@@ -238,6 +238,44 @@ PluginTester({
   },
   // fixtures: path.join(__dirname, 'fixtures'),
   tests: {
+    "this.selectComponent('asdf')": {
+      code: `({
+        func() {
+          const c = this.selectComponent('asdf');
+          this.c = this.selectComponent('asdf');
+        },
+        ret() {
+          return this.selectComponent('asdf');
+        }
+      })`,
+      output: `({
+        async func() {
+          const c = await this.selectComponentAsync('asdf');
+          this.c = this.selectComponentAsync('asdf');
+          this.c = await this.selectComponentAsync('asdf');
+        },
+        
+        ret() {
+          return this.selectComponentAsync('asdf');
+        }
+
+      });`
+    },
+    "this.selectComponent('asdf'); mulity": {
+      code: `({
+        func() {
+          const c = this.selectComponent('asdf');
+          const comp = this.selectComponent('asdf123');
+        }
+      })`,
+      output: `({
+        async func() {
+          const c = await this.selectComponentAsync('asdf');
+          const comp = await this.selectComponentAsync('asdf123');
+        }
+        
+      });`
+    },
     "const defefine wx: not transform": {
       code: `const wx = {};
       wx.request({});`,
@@ -293,6 +331,6 @@ PluginTester({
       code: `(ctx || wx).createSelectorQuery();`,
       output: `import wx from "miniapp-adapter/lib/platform/tt/index.js";
       (ctx || wx).createSelectorQuery();`,
-    }
+    },
   },
 });

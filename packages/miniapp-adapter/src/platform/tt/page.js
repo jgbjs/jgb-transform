@@ -1,4 +1,5 @@
 import { defineProperty } from '../../utils/index'
+import { addAsyncMethod } from "./common";
 
 export default function AdapterTTPage(opts, ...otherOpts) {
   // 取最后一个参数作为Page
@@ -11,6 +12,8 @@ export default function AdapterTTPage(opts, ...otherOpts) {
     extendInstance.call(this)
     oldLoad.apply(this, args)
   }
+
+  addAsyncMethod(opts);
 
   InjectPage(opts)
 }
