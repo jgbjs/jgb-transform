@@ -14,6 +14,7 @@
     "release": "lerna publish",
     "release:beta": "lerna publish  --force-publish=* --exact --skip-temp-tag --npm-tag=beta",
     "build:all": "lerna run build --parallel",
+    "test": "lerna run test",
     "watch:all": "lerna run --parallel build -- --watch",
     "sub:remote.add": "git remote add -f weapp git@github.com:jgbjs/miniprogram-demo.git",
     "sub:add": "git subtree add --prefix=examples/wx2swan/src weapp master --squash",
