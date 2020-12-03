@@ -1,4 +1,6 @@
 import pluginTester from "babel-plugin-tester";
+import * as fs from "fs";
+import * as path from "path";
 import plugin from "../src";
 
 const beautify = require("js-beautify").js;
@@ -37,7 +39,7 @@ PluginTester({
     target: "my",
   },
   tests: {
-    Component: {
+    [`Component externalClasses`]: {
       code: `
       Component({
         externalClasses: ['custom-class']
@@ -47,6 +49,11 @@ PluginTester({
       AdapterComponent({
         externalClasses: ['custom-class']
       }, Component);`,
+      teardown() {
+        // 转换之后会有.externalClasses项目根目录中
+        const json = fs.readFileSync(".externalClasses", { encoding: "utf-8" });
+        expect(json.includes("custom-class")).toBe(true);
+      },
     },
   },
 });
@@ -116,16 +123,6 @@ PluginTester({
       output: `import wx from "miniapp-adapter/lib/platform/baidu/index.js";
       (ctx || wx).createSelectorQuery();`,
     },
-    // [`swan: will not tranform Page,Component,Behavior,App`]: {
-    //   code: `Component({});
-    //   App({});
-    //   Page({});
-    //   Behavior({});`,
-    //   output: `Component({});
-    //   App({});
-    //   Page({});
-    //   Behavior({});`
-    // }
   },
 });
 
@@ -259,7 +256,7 @@ PluginTester({
           return this.selectComponentAsync('asdf');
         }
 
-      });`
+      });`,
     },
     "this.selectComponent('asdf'); mulity": {
       code: `({
@@ -274,7 +271,7 @@ PluginTester({
           const comp = await this.selectComponentAsync('asdf123');
         }
         
-      });`
+      });`,
     },
     "const defefine wx: not transform": {
       code: `const wx = {};
