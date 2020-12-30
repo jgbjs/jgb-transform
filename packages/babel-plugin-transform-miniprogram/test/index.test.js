@@ -28,6 +28,10 @@ function wrapTests(tests) {
 
 function PluginTester(params) {
   params.tests = wrapTests(params.tests);
+  params.babelOptions = {
+    babelrc: false,
+    configFile: false,
+  }
   pluginTester(params);
 }
 
